@@ -32,3 +32,40 @@ ProcessoSimulado* novo_processo_simulado(const char * nome_arquivo){
 
 	return processo;
 }
+
+int ps_executar(ProcessoSimulado *processo){
+	char* valor;
+	for(; processo->instrucoes[processo->pc].tipo!='E'; processo->pc++){
+		valor = processo->instrucoes[processo->pc].parametro;
+		switch(processo->instrucoes[processo->pc].tipo){
+			case 'S':
+				processo->dado = atoi(valor);
+				break;
+				
+			case 'A':
+				processo->dado += atoi(valor);
+				break;
+			
+			case 'D':
+				processo->dado -= atoi(valor);
+				break;
+				
+			case 'B':
+				//TO-DO: bloquear processo
+				break;
+				
+			case 'E':
+				return 1; //Conseguiu terminar sem erros
+				break;
+			
+			case 'F':
+				//TO-DO: Faz a copia exata do processo pai
+				break;
+				
+			case 'R':
+				//TO-DO: Carrega outro conjunto de instruções para o processo
+				break;
+		}
+	}
+	return 0; //Retornou de forma inesperada
+}
