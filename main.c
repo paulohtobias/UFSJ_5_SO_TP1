@@ -2,7 +2,7 @@
 
 int main(){
 	ProcessoSimulado *processo = novo_processo_simulado("./processos/teste.txt");
-	if(!ps_executar(processo)){
+	if(ps_executar(processo)){
 		exit(1);
 	}
 	printf("%d %d %c %s\n", processo->pc, processo->dado, 
