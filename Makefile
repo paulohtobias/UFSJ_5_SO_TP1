@@ -27,8 +27,8 @@ INCLUDE_PATHS = -I$(IDIR)
 
 #Libraries
 LIBS = 
-CFLAGS+= `pkg-config --cflags $(LIBS)`
-LIBRARIES = `pkg-config --libs $(LIBS)`
+#CFLAGS+= `pkg-config --cflags $(LIBS)`
+#LIBRARIES = `pkg-config --libs $(LIBS)`
 
 #Compilation line
 COMPILE = $(CC) $(CFLAGS) $(INCLUDE_PATHS)
@@ -66,5 +66,5 @@ init:
 	mkdir "obj/windows"
 	mkdir "obj/linux"
 
-run:
+run: all
 	./$(BIN)

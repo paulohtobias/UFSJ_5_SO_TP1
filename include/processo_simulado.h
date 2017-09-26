@@ -1,5 +1,5 @@
-#ifndef _PROCESSO_SIMULADO_H_
-#define _PROCESSO_SIMULADO_H_
+#ifndef PROCESSO_SIMULADO_H
+#define PROCESSO_SIMULADO_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +16,10 @@ typedef struct ProcessoSimulado{
 	Instrucao *instrucoes;
 }ProcessoSimulado;
 
+ProcessoSimulado *novo_processo_simulado(const char * nome_arquivo);
+
+void ps_replace(ProcessoSimulado *processo, const char * nome_arquivo);
+
 int ps_executar(ProcessoSimulado *processo);
 
-ProcessoSimulado* novo_processo_simulado(const char * nome_arquivo);
-#endif //_PROCESSO_SIMULADO_H_
+#endif //PROCESSO_SIMULADO_H
