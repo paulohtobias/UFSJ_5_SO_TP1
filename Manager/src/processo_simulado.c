@@ -1,9 +1,11 @@
 #include "processo_simulado.h"
 
-ProcessoSimulado *novo_processo_simulado(const char *nome_arquivo){
-	ProcessoSimulado *processo = calloc(1, sizeof(ProcessoSimulado));
+ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
+	ProcessoSimulado processo;
 
-	ps_replace(processo, nome_arquivo);
+	processo.dado = 0;
+	processo.pc = 0;
+	ps_replace(&processo, nome_arquivo);
 
 	return processo;
 }
@@ -16,11 +18,12 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	}
 
 	//Cache do arquivo em string.
+	char *instrucoes = NULL;
+	int size;
 	fseek(arquivo, 0, SEEK_END);
-	int size = ftell(arquivo) + 1;
+	size = ftell(arquivo) + 1;
 	rewind(arquivo);
-
-	char *instrucoes = malloc(size);
+	instrucoes = malloc(size);
 	fread(instrucoes, 1, size, arquivo);
 	fclose(arquivo);
 
@@ -38,6 +41,8 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	}
 	processo->instrucoes = malloc(counter * sizeof(Instrucao));
 	
+	//temp será usada para percorrer a string instrucoes sem perder a referência
+	//para o endereço base.
 	char *temp = instrucoes;
 
 	for(i=0; i < counter; i++){
