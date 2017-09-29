@@ -4,9 +4,9 @@ CFLAGS = -g -Wall -MMD
 
 #Binary and Running
 ifeq ($(OS),Windows_NT)
-    BIN = main.exe
+    BIN = manager.exe
 else
-    BIN = main
+    BIN = manager.out
 endif
 
 #Directories

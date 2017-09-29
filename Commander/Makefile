@@ -4,9 +4,9 @@ CFLAGS = -g -Wall -MMD
 
 #Binary and Running
 ifeq ($(OS),Windows_NT)
-    BIN = main.exe
+    BIN = commander.exe
 else
-    BIN = main
+    BIN = commander.out
 endif
 
 #Directories
@@ -43,7 +43,7 @@ OBJS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.o)
 DEPS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.d)
 
 all: $(OBJS)
-	$(COMPILE) $(OBJS) main$(SOURCE) -o $(BIN) $(LIBRARIES)
+	$(COMPILE) $(OBJS) commander$(SOURCE) -o $(BIN) $(LIBRARIES)
 
 dll: LIBRARIES+= -lm -fPIC
 dll: $(OBJS)

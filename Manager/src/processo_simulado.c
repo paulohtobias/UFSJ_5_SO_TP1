@@ -1,6 +1,6 @@
 #include "processo_simulado.h"
 
-ProcessoSimulado *novo_processo_simulado(const char * nome_arquivo){
+ProcessoSimulado *novo_processo_simulado(const char *nome_arquivo){
 	ProcessoSimulado *processo = calloc(1, sizeof(ProcessoSimulado));
 
 	ps_replace(processo, nome_arquivo);

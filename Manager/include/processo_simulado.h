@@ -16,9 +16,9 @@ typedef struct ProcessoSimulado{
 	Instrucao *instrucoes;
 }ProcessoSimulado;
 
-ProcessoSimulado *novo_processo_simulado(const char * nome_arquivo);
+ProcessoSimulado *novo_processo_simulado(const char *nome_arquivo);
 
-void ps_replace(ProcessoSimulado *processo, const char * nome_arquivo);
+void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
 
 int ps_executar(ProcessoSimulado *processo);
 

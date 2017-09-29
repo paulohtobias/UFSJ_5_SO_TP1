@@ -4,9 +4,9 @@ CFLAGS = -g -Wall -MMD
 
 #Binary and Running
 ifeq ($(OS),Windows_NT)
-    BIN = main.exe
+    BIN = reporter.exe
 else
-    BIN = main
+    BIN = reporter.out
 endif
 
 #Directories
@@ -43,7 +43,7 @@ OBJS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.o)
 DEPS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.d)
 
 all: $(OBJS)
-	$(COMPILE) $(OBJS) main$(SOURCE) -o $(BIN) $(LIBRARIES)
+	$(COMPILE) $(OBJS) reporter$(SOURCE) -o $(BIN) $(LIBRARIES)
 
 dll: LIBRARIES+= -lm -fPIC
 dll: $(OBJS)
