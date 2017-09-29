@@ -13,14 +13,18 @@ CPU novo_CPU(int fatia_tempo){
 CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps){
 	CPU cpu = novo_CPU(fatia_tempo);
 	
-	CPU_set_processo(cpu, ps);
+	cpu_set_processo(cpu, ps);
 	
 	return cpu;
 }
 
-void CPU_set_processo(CPU cpu, ProcessoSimulado ps){
+void cpu_set_processo(CPU cpu, ProcessoSimulado ps){
 	cpu.pc = ps.pc;
 	cpu.dado = ps.dado;
 	cpu.array_programa = ps.instrucoes;
 	cpu.tempo_total = 0;
+}
+
+void cpu_executar_instrucao(CPU cpu){
+	
 }
