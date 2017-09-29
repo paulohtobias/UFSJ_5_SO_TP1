@@ -10,10 +10,10 @@
 typedef struct ProcessManager{
     int tempo;
     CPU cpu;
-    TabelaPcb *tabela;
-    int *estado_execucao;
-    int *estado_pronto;
-    int *estado_bloqueado;
+    ArrayList tabela;
+    ArrayList estado_execucao;
+    ArrayList estado_pronto;
+    ArrayList estado_blqueado;
 }ProcessManager;
 
 ProcessManager novo_ProcessManager();
