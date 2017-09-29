@@ -11,4 +11,10 @@ typedef struct CPU{
     int fatia_tempo;
 }CPU;
 
+CPU novo_CPU(int fatia_tempo);
+
+CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps);
+
+void CPU_set_processo(CPU cpu, ProcessoSimulado ps);
+
 #endif //CPU_H
