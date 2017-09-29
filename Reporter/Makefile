@@ -1,32 +1,27 @@
 #Main Makefile
-CC = gcc
-CFLAGS = -g -Wall -MMD
+CC := gcc
+CFLAGS := -g -Wall -MMD
 
 #Binary and Running
 ifeq ($(OS),Windows_NT)
-    BIN = reporter.exe
+	OS := windows
+    BIN := report.exe
 else
-    BIN = reporter.out
+	OS := linux
+    BIN := report.out
 endif
 
 #Directories
-IDIR = ./include
-SDIR = ./src
+IDIR := ./include ../utils
+SDIR := ./src
 
-ifeq ($(OS),Windows_NT)
-	ODIR = ./obj/windows
-else
-	ODIR = ./obj/linux
-endif
-
-#Files
-SOURCE = .c
+ODIR := ./obj/$(OS)
 
 #Paths
-INCLUDE_PATHS = -I$(IDIR)
+INCLUDE_PATHS = $(IDIR:%=-I%)
 
 #Libraries
-LIBS = 
+LIBS := 
 #CFLAGS+= `pkg-config --cflags $(LIBS)`
 #LIBRARIES = `pkg-config --libs $(LIBS)`
 
@@ -35,24 +30,22 @@ COMPILE = $(CC) $(CFLAGS) $(INCLUDE_PATHS)
 
 #FILEs
 #---------------Source----------------#
-SRCS = $(wildcard $(SDIR)/*$(SOURCE)) $(wildcard $(SDIR)/*/*$(SOURCE))
-
+SRCS = $(wildcard $(SDIR)/*.c) $(wildcard $(SDIR)/*/*.c)
 #---------------Object----------------#
-OBJS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.o)
+OBJS = $(SRCS:$(SDIR)/%.c=$(ODIR)/%.o) \
+	$(patsubst ../utils/%.c,../obj/$(OS)/%.o,$(wildcard ../utils/*.c))
 #-------------Dependency--------------#
-DEPS = $(SRCS:$(SDIR)/%$(SOURCE)=$(ODIR)/%.d)
+DEPS = $(SRCS:$(SDIR)/%.c=$(ODIR)/%.d) \
+	$(patsubst ../utils/%.c,../obj/$(OS)/%.d,$(wildcard ../utils/*.c))
+
 
 all: $(OBJS)
-	$(COMPILE) $(OBJS) reporter$(SOURCE) -o $(BIN) $(LIBRARIES)
-
-dll: LIBRARIES+= -lm -fPIC
-dll: $(OBJS)
-	$(COMPILE) -shared -o libguisdl.so $(OBJS) $(LIBRARIES)
+	$(COMPILE) $(OBJS) main.c -o $(BIN) $(LIBRARIES)
 
 # Include all .d files
 -include $(DEPS)
 
-$(ODIR)/%.o: $(SDIR)/%$(SOURCE)
+$(ODIR)/%.o: $(SDIR)/%.c
 	$(COMPILE) -c $< -o $@ $(LIBRARIES)
 
 .PHONY : clean
@@ -60,11 +53,11 @@ clean :
 	-rm $(BIN) $(OBJS) $(DEPS)
 
 init:
-	mkdir include
-	mkdir src
 	mkdir obj
 	mkdir "obj/windows"
 	mkdir "obj/linux"
+	mkdir include
+	mkdir src
 
 run: all
 	./$(BIN)
