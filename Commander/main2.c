@@ -5,7 +5,11 @@ void *imprime(char valor){
 }
 
 int main(int argc, char *argv[]){
-	comm_reader(imprime);
+	printf("Main2\n");
+	
+	char c;
+	while(read(0, &c, 1) > 0)
+		printf("Main2 lido: %c\n", c);
 
 	return 0;
 }
