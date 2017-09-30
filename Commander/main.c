@@ -16,7 +16,7 @@ int main(){
 			execl("./main2","main2",(char*)NULL);
 		break;
 		default:
-			commander("./input.txt");
+			commander("./commander/input.txt");
 			break;
 	}
 	return 0;
