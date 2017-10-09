@@ -2,6 +2,7 @@
 #define TABELA_PCB_H
 
 #include "processo_simulado.h"
+#include "array_list.h"
 
 typedef enum ESTADO{
     FINALIZADO, ///Processo já terminou sua execução e pode ser substituído na
@@ -22,8 +23,9 @@ typedef struct TabelaPcb{
     int tempo_cpu; ///Tempo total em que o processo passou na CPU.
 }TabelaPcb;
 
-TabelaPcb *novo_TabelaPcb();
+TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid,
+        int prioridade, int tempo_inicio);
 
-TabelaPcb tabelapcb_add_processo(TabelaPcb *tabela, ProcessoSimulado ps);
+void tabelapcb_add_processo(ArrayList *tabela, TabelaPcb *item);
 
 #endif //TABELA_PCB_H

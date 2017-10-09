@@ -17,6 +17,6 @@ CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps);
 
 void cpu_set_processo(CPU cpu, ProcessoSimulado ps);
 
-void cpu_executar_instrucao(CPU cpu);
+int cpu_executar_instrucao(CPU *cpu);
 
 #endif //CPU_H

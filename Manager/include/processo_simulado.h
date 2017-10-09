@@ -7,7 +7,7 @@
 
 typedef struct Instrucao{
 	char tipo;
-	char *parametro;
+	char parametro[256];
 }Instrucao;
 
 typedef struct ProcessoSimulado{
@@ -17,6 +17,8 @@ typedef struct ProcessoSimulado{
 }ProcessoSimulado;
 
 ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
+
+ProcessoSimulado ps_fork(ProcessoSimulado ps);
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
 

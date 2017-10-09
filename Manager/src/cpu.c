@@ -25,6 +25,29 @@ void cpu_set_processo(CPU cpu, ProcessoSimulado ps){
 	cpu.tempo_total = 0;
 }
 
-void cpu_executar_instrucao(CPU cpu){
-	
+int cpu_executar_instrucao(CPU *cpu){
+	char *valor = cpu->array_programa[cpu->pc].parametro;
+	switch(cpu->array_programa[cpu->pc].tipo){
+		case 'S':
+			cpu->dado = atoi(valor);
+			break;
+		case 'A':
+			cpu->dado += atoi(valor);
+			break;
+		case 'D':
+			cpu->dado -= atoi(valor);
+			break;
+		case 'B':
+			//TO-DO: bloquear processo
+			break;
+		case 'F':
+			//TO-DO: Faz a copia exata do processo pai
+			break;
+		case 'R':
+			//ps_replace(cpu, valor);
+			//Atualizando o PC pra primeira instrução.
+			cpu->pc = -1;
+			break;
+	}
+	cpu->pc++;
 }

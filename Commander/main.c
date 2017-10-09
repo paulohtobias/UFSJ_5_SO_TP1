@@ -6,7 +6,6 @@
 int main(){
 	int pipefd[2];
 	pid_t pid;
-	char buf;
 
 	pipe(pipefd);
 	pid = fork();
@@ -16,23 +15,34 @@ int main(){
 			perror("has not created a children process");
 			break;
 		case 0:
-			printf("Child\n");
+			//exit(0);
+			//fd de escrita não será usado.
 			close(pipefd[FD_WRITE]);
+			
+			//Trocando a entrada padrão do filho pelo fd de leitura aberto no pipe.
 			dup2(pipefd[FD_READ], 0);
-			printf("Switching...\n");
-			execl("./main2","main2",(char*)NULL);
+			
+			//Trocando o código pelo código do Process Manager.
+			execl("../Manager/manager.out", "manager.out", (char*)NULL);
 			break;
 		default:
-			//commander("./commander/input.txt");
-			printf("Parent\n");
+			//fd de leitura não será usado.
 			close(pipefd[FD_READ]);
-			FILE *in = fopen("./commander/input.txt", "r");
-			while(!feof(in)){
-				fscanf(in, "%c\n", &buf);
-				write(pipefd[FD_WRITE], &buf, 1);
-				sleep(1); ///A cada segundo um comando é lido
-			}
+			
+			char comando;
+			do{
+				scanf("%c", &comando);
+				if(comando != '\n'){
+					//printf("Commander Lido: <%c>\n", comando);
+					write(pipefd[FD_WRITE], &comando, 1);
+					sleep(1); ///A cada segundo um comando é lido
+				}
+			}while(comando != 'T');
+			
+			//Fecha o pipe pra escrita.
 			close(pipefd[FD_WRITE]);
+			
+			//Espera o filho terminar.
 			wait(NULL);
 			exit(0);
 			break;

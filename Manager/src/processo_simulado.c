@@ -5,9 +5,18 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
 
 	processo.dado = 0;
 	processo.pc = 0;
+	processo.instrucoes = NULL;
 	ps_replace(&processo, nome_arquivo);
 
 	return processo;
+}
+
+ProcessoSimulado ps_fork(ProcessoSimulado ps){
+	ProcessoSimulado filho = ps;
+	
+	filho.pc++;
+	
+	return filho;
 }
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
@@ -46,7 +55,6 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	char *temp = instrucoes;
 
 	for(i=0; i < counter; i++){
-		processo->instrucoes[i].parametro = malloc(256);
 		sscanf(temp, "%c %s\n", &processo->instrucoes[i].tipo, processo->instrucoes[i].parametro);
 		temp += 3 + strlen(processo->instrucoes[i].parametro);
 	}
@@ -57,34 +65,7 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 int ps_executar(ProcessoSimulado *processo){
 	char* valor;
 	for(; processo->instrucoes[processo->pc].tipo != 'E'; processo->pc++){
-		valor = processo->instrucoes[processo->pc].parametro;
-		switch(processo->instrucoes[processo->pc].tipo){
-			case 'S':
-				processo->dado = atoi(valor);
-				break;
-
-			case 'A':
-				processo->dado += atoi(valor);
-				break;
-
-			case 'D':
-				processo->dado -= atoi(valor);
-				break;
-
-			case 'B':
-				//TO-DO: bloquear processo
-				break;
-
-			case 'F':
-				//TO-DO: Faz a copia exata do processo pai
-				break;
-
-			case 'R':
-				ps_replace(processo, valor);
-				//Atualizando o PC pra primeira instrução.
-				processo->pc = -1;
-				break;
-		}
+		
 	}
 	return 0; //Execução sem erros
 }
