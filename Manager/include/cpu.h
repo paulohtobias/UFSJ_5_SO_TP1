@@ -2,6 +2,7 @@
 #define CPU_H
 
 #include "processo_simulado.h"
+#include "array_list.h"
 
 typedef struct CPU{
     int dado;
@@ -17,6 +18,6 @@ CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps);
 
 void cpu_set_processo(CPU cpu, ProcessoSimulado ps);
 
-int cpu_executar_instrucao(CPU *cpu);
+ESTADO cpu_executar_instrucao(CPU *cpu);
 
 #endif //CPU_H

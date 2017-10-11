@@ -10,10 +10,7 @@
 typedef struct ProcessManager{
     int tempo;
     CPU cpu;
-    ArrayList tabela;
-    int estado_executando;
-    ArrayList estado_pronto;
-    ArrayList estado_blqueado;
+    int tabela_pcb;
 }ProcessManager;
 
 ProcessManager novo_ProcessManager();
@@ -21,5 +18,7 @@ ProcessManager novo_ProcessManager();
 void pm_processar_comandos(ProcessManager *pm);
 
 void pm_processar_comando(ProcessManager *pm, char comando);
+
+void pm_print_estado_atual_sistema(ProcessManager *pm);
 
 #endif //PROCESS_MANAGER_H

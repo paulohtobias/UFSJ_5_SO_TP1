@@ -4,14 +4,6 @@
 #include "processo_simulado.h"
 #include "array_list.h"
 
-typedef enum ESTADO{
-    FINALIZADO, ///Processo já terminou sua execução e pode ser substituído na
-                ///TabelaPcb.
-    EXECUTANDO, ///Processo está em execução na CPU.
-    PRONTO,     ///Processo está pronto para ser executado.
-    BLOQUEADO   ///Processo está bloqueado.
-}ESTADO;
-
 typedef struct TabelaPcb{
     int pid; ///ID do processo.
     int ppid; ///ID do processo pai.

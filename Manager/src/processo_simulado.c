@@ -14,6 +14,8 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
 ProcessoSimulado ps_fork(ProcessoSimulado ps){
 	ProcessoSimulado filho = ps;
 	
+	//TO-DO: copiar vetor de instruçao.
+	
 	filho.pc++;
 	
 	return filho;

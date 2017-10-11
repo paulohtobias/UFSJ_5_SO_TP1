@@ -5,6 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Indica o estado de um <code>Processo Simulado</code>.
+ */
+typedef enum ESTADO{
+    FINALIZADO, ///Processo já terminou sua execução e pode ser substituído na
+                ///TabelaPcb.
+    EXECUTANDO, ///Processo está em execução na CPU.
+    PRONTO,     ///Processo está pronto para ser executado.
+    BLOQUEADO   ///Processo está bloqueado.
+}ESTADO;
+
 typedef struct Instrucao{
 	char tipo;
 	char parametro[256];

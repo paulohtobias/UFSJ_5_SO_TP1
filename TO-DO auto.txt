@@ -1,0 +1,2 @@
+./Manager/src/cpu.c:43:			//TO-DO: bloquear processo
+./Manager/src/cpu.c:46:			//TO-DO: Faz a copia exata do processo pai

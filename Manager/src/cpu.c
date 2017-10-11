@@ -1,5 +1,7 @@
 #include "cpu.h"
 
+extern ArrayList tabela_pcb;
+
 CPU novo_CPU(int fatia_tempo){
 	CPU cpu;
 	
@@ -25,12 +27,12 @@ void cpu_set_processo(CPU cpu, ProcessoSimulado ps){
 	cpu.tempo_total = 0;
 }
 
-int cpu_executar_instrucao(CPU *cpu){
+ESTADO cpu_executar_instrucao(CPU *cpu){
 	char *valor = cpu->array_programa[cpu->pc].parametro;
 	switch(cpu->array_programa[cpu->pc].tipo){
 		case 'S':
 			cpu->dado = atoi(valor);
-			break;
+			return EXECUTANDO;
 		case 'A':
 			cpu->dado += atoi(valor);
 			break;
@@ -48,6 +50,8 @@ int cpu_executar_instrucao(CPU *cpu){
 			//Atualizando o PC pra primeira instrução.
 			cpu->pc = -1;
 			break;
+		case 'E':
+			return FINALIZADO;
 	}
 	cpu->pc++;
 }
