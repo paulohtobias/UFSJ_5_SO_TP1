@@ -1,5 +1,6 @@
 #include "process_manager.h"
 
+///Tabela global de processos.
 ArrayList tabela_pcb;
 int estado_executando;
 ArrayList estado_pronto;

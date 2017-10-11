@@ -5,7 +5,7 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
 
 	processo.dado = 0;
 	processo.pc = 0;
-	processo.instrucoes = NULL;
+	processo.instrucoes = novo_ArrayList(sizeof(Instrucao));
 	ps_replace(&processo, nome_arquivo);
 
 	return processo;
@@ -37,37 +37,20 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	instrucoes = malloc(size);
 	fread(instrucoes, 1, size, arquivo);
 	fclose(arquivo);
-
-	//Obtendo o número de instruções.
-	int i, counter = 0;
-	for(i=0; i < size; i++){
-		if(instrucoes[i] == '\n'){
-			counter++;
-		}
-	}
 	
-	//Liberando o vetor de instruções do processo anterior.
-	if(processo->instrucoes != NULL){
-		free(processo->instrucoes);
-	}
-	processo->instrucoes = malloc(counter * sizeof(Instrucao));
+	//Zerando o vetor de instruções.
+	processo->instrucoes.tamanho_atual = 0;
 	
 	//temp será usada para percorrer a string instrucoes sem perder a referência
 	//para o endereço base.
 	char *temp = instrucoes;
-
-	for(i=0; i < counter; i++){
-		sscanf(temp, "%c %s\n", &processo->instrucoes[i].tipo, processo->instrucoes[i].parametro);
-		temp += 3 + strlen(processo->instrucoes[i].parametro);
+	int i;
+	for(i=0; instrucoes[i] != '\0'; i++){
+		Instrucao instrucao;
+		sscanf(temp, "%c %s\n", &instrucao.tipo, instrucao.parametro);
+		temp += 3 + strlen(instrucao.parametro);
+		arraylist_add_fim(&processo->instrucoes, &instrucao);
 	}
 
 	free(instrucoes);
-}
-
-int ps_executar(ProcessoSimulado *processo){
-	char* valor;
-	for(; processo->instrucoes[processo->pc].tipo != 'E'; processo->pc++){
-		
-	}
-	return 0; //Execução sem erros
 }

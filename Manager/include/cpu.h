@@ -7,7 +7,7 @@
 typedef struct CPU{
     int dado;
 	int pc;
-	Instrucao *array_programa;
+	ArrayList array_programa;
     int tempo_total; ///Tempo usado na fatia de tempo.
     int fatia_tempo;
 }CPU;

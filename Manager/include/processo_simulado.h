@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "array_list.h"
 
 /**
  * Indica o estado de um <code>Processo Simulado</code>.
@@ -24,7 +25,7 @@ typedef struct Instrucao{
 typedef struct ProcessoSimulado{
 	int pc;
 	int dado;
-	Instrucao *instrucoes;
+	ArrayList instrucoes;
 }ProcessoSimulado;
 
 ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
@@ -32,7 +33,5 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
 ProcessoSimulado ps_fork(ProcessoSimulado ps);
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
-
-int ps_executar(ProcessoSimulado *processo);
 
 #endif //PROCESSO_SIMULADO_H
