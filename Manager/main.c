@@ -1,4 +1,3 @@
-#include "processo_simulado.h"
 #include "process_manager.h"
 
 int main(int argc, char** argv) {

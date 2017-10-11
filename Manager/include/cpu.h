@@ -2,7 +2,6 @@
 #define CPU_H
 
 #include "processo_simulado.h"
-#include "array_list.h"
 
 typedef struct CPU{
     int dado;

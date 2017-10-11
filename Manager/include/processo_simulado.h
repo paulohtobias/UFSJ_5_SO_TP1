@@ -30,7 +30,7 @@ typedef struct ProcessoSimulado{
 
 ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
 
-ProcessoSimulado ps_fork(ProcessoSimulado ps);
+ProcessoSimulado ps_copia(ProcessoSimulado ps);
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
 

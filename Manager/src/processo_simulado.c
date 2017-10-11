@@ -11,14 +11,14 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
 	return processo;
 }
 
-ProcessoSimulado ps_fork(ProcessoSimulado ps){
-	ProcessoSimulado filho = ps;
+ProcessoSimulado ps_copia(ProcessoSimulado ps){
+	ProcessoSimulado copia = ps;
 	
-	//TO-DO: copiar vetor de instruçao.
+	copia.instrucoes = arraylist_copia(ps.instrucoes);
 	
-	filho.pc++;
+	copia.pc++;
 	
-	return filho;
+	return copia;
 }
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){

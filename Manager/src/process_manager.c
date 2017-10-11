@@ -49,6 +49,19 @@ void pm_processar_comando(ProcessManager *pm, char comando){
 	}
 }
 
-void pm_print_estado_atual_sistema(ProcessManager *pm){
+void pm_executar_instrucao(ProcessManager *pm){
+	//TO-DO: chamar o cpu_executar instruçao antes.
+	//O escalonamento é feito aqui. Devem ter outras coisas tbm.
+}
+
+void pm_desbloquear_processo(ProcessManager *pm){
 	//TO-DO
+}
+
+void pm_print_estado_atual_sistema(ProcessManager *pm){
+	//TO-DO: precisa abrir um pipe e chamar o reporter.
+}
+
+void pm_finaliza(ProcessManager *pm){
+	//TO-DO: chama a pm_print_estado_atual_sistema e finaliza
 }
