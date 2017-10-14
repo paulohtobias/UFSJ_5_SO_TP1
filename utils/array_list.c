@@ -15,6 +15,7 @@ ArrayList arraylist_copia(ArrayList lista){
 	ArrayList copia = lista;
 	
 	copia.dados = malloc(copia.tamanho_maximo * copia.size);
+	memcpy(copia.dados, lista.dados, copia.tamanho_maximo * copia.size);
 	
 	return copia;
 }

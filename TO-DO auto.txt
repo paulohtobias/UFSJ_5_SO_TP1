@@ -1,2 +1,7 @@
-./Manager/src/cpu.c:43:			//TO-DO: bloquear processo
-./Manager/src/cpu.c:46:			//TO-DO: Faz a copia exata do processo pai
+./Manager/src/cpu.c:45:			//TO-DO: bloquear processo
+./Manager/src/cpu.c:48:			//TO-DO: Faz a copia exata do processo pai
+./Manager/src/process_manager.c:37:			//TO-DO: verificar se fatia de tempo acabou, foi bloqueado, etc.
+./Manager/src/process_manager.c:53:	//TO-DO: chamar o cpu_executar instruçao antes.
+./Manager/src/process_manager.c:58:	//TO-DO
+./Manager/src/process_manager.c:62:	//TO-DO: precisa abrir um pipe e chamar o reporter.
+./Manager/src/process_manager.c:66:	//TO-DO: chama a pm_print_estado_atual_sistema e finaliza
