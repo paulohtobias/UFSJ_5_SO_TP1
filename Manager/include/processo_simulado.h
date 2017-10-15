@@ -28,6 +28,7 @@ typedef struct ProcessoSimulado{
 	ArrayList instrucoes;
 }ProcessoSimulado;
 
+//TO-DO: talvez usar alocaçao dinamica.
 ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
 
 ProcessoSimulado ps_copia(ProcessoSimulado ps);

@@ -10,9 +10,16 @@ typedef struct ProcessManager{
     int tempo;
     CPU cpu;
     int tabela_pcb;
+	int pid_count;
 }ProcessManager;
 
 ProcessManager novo_ProcessManager();
+
+//TO-DO: void pm_copiar_processo(ProcessManager *pm, );
+
+void pm_add_processo(ProcessManager *pm, ProcessoSimulado *novo_processo);
+
+/* COMANDOS */
 
 void pm_processar_comandos(ProcessManager *pm);
 

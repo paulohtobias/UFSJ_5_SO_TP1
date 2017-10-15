@@ -14,7 +14,3 @@ TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid, int prior
 
 	return item;
 }
-
-void tabelapcb_add_processo(ArrayList *tabela, TabelaPcb *item){
-	arraylist_add_fim(tabela, item);
-}

@@ -1,6 +1,9 @@
 #include "cpu.h"
 
 extern ArrayList tabela_pcb;
+extern int estado_executando;
+extern ArrayList estado_pronto;
+extern ArrayList estado_blqueado;
 
 CPU novo_CPU(int fatia_tempo){
 	CPU cpu;

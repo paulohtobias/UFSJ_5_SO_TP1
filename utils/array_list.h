@@ -48,7 +48,8 @@ void arraylist_add_fim(ArrayList *lista, const void *dado);
 
 /**
  * Substitui o dado na posição <code>index</code> de <code>lista</code> por uma
- * cópia de <code>dado</code>.
+ * cópia de <code>dado</code>. Se <code>index</code> for maior que o tamanho
+ * máximo da lista, então ela será expandida para acomodar o novo índice.
  * 
  * @param lista um <code>ArrayList</code>
  * @param dado endereço do dado que será copiado para o final da lista.

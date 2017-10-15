@@ -8,16 +8,24 @@ ArrayList estado_blqueado;
 
 ProcessManager novo_ProcessManager(){
 	ProcessManager pm;
-	
+
 	pm.tempo = 0;
 	pm.cpu = novo_CPU_processo(FATIA_TEMPO, novo_ProcessoSimulado("../Manager/processos/init.txt"));
+	pm.pid_count = 0;
 	tabela_pcb = novo_ArrayList(sizeof(TabelaPcb));
 	estado_executando = 0;
 	estado_pronto = novo_ArrayList(sizeof(int));
 	estado_blqueado = novo_ArrayList(sizeof(int));
-	
+
 	return pm;
 }
+
+void pm_add_processo(ProcessManager *pm, ProcessoSimulado *processo){
+	TabelaPcb novo_processo;
+}
+
+
+/* COMANDOS */
 
 void pm_processar_comandos(ProcessManager *pm){
 	char comando;

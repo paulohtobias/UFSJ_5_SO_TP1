@@ -38,6 +38,10 @@ void arraylist_add_fim(ArrayList *lista, const void *dado){
 }
 
 void arraylist_insere_index(ArrayList *lista, const void *dado, int index){
+	if(index >= lista->tamanho_maximo){
+		lista->tamanho_maximo = index + 1;
+		lista->dados = realloc(lista->dados, lista->tamanho_maximo * lista->size);
+	}
 	memcpy(lista->dados + (index * lista->size), dado, lista->size);
 }
 
