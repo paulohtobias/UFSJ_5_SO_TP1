@@ -4,6 +4,7 @@ extern ArrayList tabela_pcb;
 extern int estado_executando;
 extern ArrayList estado_pronto;
 extern ArrayList estado_blqueado;
+extern void pm_copiar_processo(ProcessoSimulado* ps);
 
 CPU novo_CPU(int fatia_tempo){
 	CPU cpu;
@@ -15,7 +16,7 @@ CPU novo_CPU(int fatia_tempo){
 	return cpu;
 }
 
-CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps){
+CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado *ps){
 	CPU cpu = novo_CPU(fatia_tempo);
 	
 	cpu_set_processo(cpu, ps);
@@ -23,10 +24,10 @@ CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps){
 	return cpu;
 }
 
-void cpu_set_processo(CPU cpu, ProcessoSimulado ps){
-	cpu.pc = ps.pc;
-	cpu.dado = ps.dado;
-	cpu.array_programa = arraylist_copia(ps.instrucoes);
+void cpu_set_processo(CPU cpu, ProcessoSimulado *ps){
+	cpu.pc = ps->pc;
+	cpu.dado = ps->dado;
+	cpu.array_programa = arraylist_copia(ps->array_programa);
 	cpu.tempo_total = 0;
 }
 
@@ -34,29 +35,39 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 	Instrucao instrucao;
 	arraylist_get_index(cpu->array_programa, cpu->pc, &instrucao);
 	char *parametro = instrucao.parametro;
+	
+	ESTADO estado;
 	switch(instrucao.tipo){
 		case 'S':
 			cpu->dado = atoi(parametro);
-			return EXECUTANDO;
+			estado = EXECUTANDO;
+			break;
 		case 'A':
 			cpu->dado += atoi(parametro);
+			estado = EXECUTANDO;
 			break;
 		case 'D':
 			cpu->dado -= atoi(parametro);
+			estado = EXECUTANDO;
 			break;
 		case 'B':
 			//TO-DO: bloquear processo
+			estado = BLOQUEADO;
 			break;
 		case 'F':
-			//TO-DO: Faz a copia exata do processo pai
+			pm_copiar_processo((ProcessoSimulado *)cpu);
+			cpu->pc += atoi(parametro);
+			estado = EXECUTANDO;
 			break;
 		case 'R':
-			//ps_replace(cpu, valor);
+			ps_replace((ProcessoSimulado *)cpu, parametro);
 			//Atualizando o PC pra primeira instrução.
 			cpu->pc = -1;
+			estado = BLOQUEADO; //TO-DO: talvez seja EXECUTANDO.
 			break;
 		case 'E':
 			return FINALIZADO;
 	}
 	cpu->pc++;
+	return estado;
 }

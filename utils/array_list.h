@@ -70,4 +70,15 @@ void arraylist_insere_index(ArrayList *lista, const void *dado, int index);
  */
 void *arraylist_get_index(ArrayList lista, int index, void *dado);
 
+/**
+ * Retorna o índice da primeira posição válida da lista.
+ * 
+ * @param lista um <code>ArrayList</code>
+ * @param valido função que será chamada sobre os dados para verificar se são
+ * válidos ou não
+ * @return o primeiro índice onde há uma posição válida ou -1 caso não exista
+ * nenhuma
+ */
+int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *));
+
 #endif //ARRAY_LIST_H

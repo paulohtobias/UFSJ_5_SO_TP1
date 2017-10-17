@@ -14,3 +14,7 @@ TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid, int prior
 
 	return item;
 }
+
+int tabela_pcb_valido(const TabelaPcb *item){
+	return (item->estado == FINALIZADO);
+}

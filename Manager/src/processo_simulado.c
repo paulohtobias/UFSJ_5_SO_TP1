@@ -1,12 +1,12 @@
 #include "processo_simulado.h"
 
-ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
-	ProcessoSimulado processo;
+ProcessoSimulado *novo_ProcessoSimulado(const char *nome_arquivo){
+	ProcessoSimulado *processo = malloc(sizeof(ProcessoSimulado));
 
-	processo.dado = 0;
-	processo.pc = 0;
-	processo.instrucoes = novo_ArrayList(sizeof(Instrucao));
-	ps_replace(&processo, nome_arquivo);
+	processo->dado = 0;
+	processo->pc = 0;
+	processo->array_programa = novo_ArrayList(sizeof(Instrucao));
+	ps_replace(processo, nome_arquivo);
 
 	return processo;
 }
@@ -14,7 +14,7 @@ ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
 ProcessoSimulado ps_copia(ProcessoSimulado ps){
 	ProcessoSimulado copia = ps;
 	
-	copia.instrucoes = arraylist_copia(ps.instrucoes);
+	copia.array_programa = arraylist_copia(ps.array_programa);
 	
 	copia.pc++;
 	
@@ -39,7 +39,7 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	fclose(arquivo);
 	
 	//Zerando o vetor de instruções.
-	processo->instrucoes.tamanho_atual = 0;
+	processo->array_programa.tamanho_atual = 0;
 	
 	//temp será usada para percorrer a string instrucoes sem perder a referência
 	//para o endereço base.
@@ -49,7 +49,7 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 		Instrucao instrucao;
 		sscanf(temp, "%c %s\n", &instrucao.tipo, instrucao.parametro);
 		temp += 3 + strlen(instrucao.parametro);
-		arraylist_add_fim(&processo->instrucoes, &instrucao);
+		arraylist_add_fim(&processo->array_programa, &instrucao);
 	}
 
 	free(instrucoes);

@@ -48,3 +48,15 @@ void arraylist_insere_index(ArrayList *lista, const void *dado, int index){
 void *arraylist_get_index(ArrayList lista, int index, void *dado){
 	return memcpy(dado, lista.dados + (index * lista.size), lista.size);
 }
+
+int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *)){
+	int i;
+	for(i=0; i<lista.tamanho_atual; i++){
+		void *dado = malloc(lista.size);
+		memcpy(dado, lista.dados + (index * lista.size), lista.size);
+		if(valido(dado)){
+			return i;
+		}
+	}
+	return -1;
+}

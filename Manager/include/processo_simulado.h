@@ -25,11 +25,10 @@ typedef struct Instrucao{
 typedef struct ProcessoSimulado{
 	int pc;
 	int dado;
-	ArrayList instrucoes;
+	ArrayList array_programa;
 }ProcessoSimulado;
 
-//TO-DO: talvez usar alocaçao dinamica.
-ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
+ProcessoSimulado *novo_ProcessoSimulado(const char *nome_arquivo);
 
 ProcessoSimulado ps_copia(ProcessoSimulado ps);
 

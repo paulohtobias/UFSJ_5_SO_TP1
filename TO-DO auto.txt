@@ -1,7 +1,9 @@
-./Manager/src/cpu.c:45:			//TO-DO: bloquear processo
-./Manager/src/cpu.c:48:			//TO-DO: Faz a copia exata do processo pai
-./Manager/src/process_manager.c:37:			//TO-DO: verificar se fatia de tempo acabou, foi bloqueado, etc.
-./Manager/src/process_manager.c:53:	//TO-DO: chamar o cpu_executar instruçao antes.
-./Manager/src/process_manager.c:58:	//TO-DO
-./Manager/src/process_manager.c:62:	//TO-DO: precisa abrir um pipe e chamar o reporter.
-./Manager/src/process_manager.c:66:	//TO-DO: chama a pm_print_estado_atual_sistema e finaliza
+./Manager/include/processo_simulado.h:31://TO-DO: talvez usar alocaçao dinamica.
+./Manager/include/process_manager.h:18://TO-DO: void pm_copiar_processo(ProcessManager *pm, );
+./Manager/src/cpu.c:48:			//TO-DO: bloquear processo
+./Manager/src/cpu.c:51:			//TO-DO: Faz a copia exata do processo pai
+./Manager/src/process_manager.c:45:			//TO-DO: verificar se fatia de tempo acabou, foi bloqueado, etc.
+./Manager/src/process_manager.c:61:	//TO-DO: chamar o cpu_executar instruçao antes.
+./Manager/src/process_manager.c:66:	//TO-DO
+./Manager/src/process_manager.c:70:	//TO-DO: precisa abrir um pipe e chamar o reporter.
+./Manager/src/process_manager.c:74:	//TO-DO: chama a pm_print_estado_atual_sistema e finaliza

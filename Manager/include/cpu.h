@@ -4,8 +4,8 @@
 #include "processo_simulado.h"
 
 typedef struct CPU{
-    int dado;
 	int pc;
+    int dado;
 	ArrayList array_programa;
     int tempo_total; ///Tempo usado na fatia de tempo.
     int fatia_tempo;
@@ -13,9 +13,9 @@ typedef struct CPU{
 
 CPU novo_CPU(int fatia_tempo);
 
-CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps);
+CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado *ps);
 
-void cpu_set_processo(CPU cpu, ProcessoSimulado ps);
+void cpu_set_processo(CPU cpu, ProcessoSimulado *ps);
 
 ESTADO cpu_executar_instrucao(CPU *cpu);
 

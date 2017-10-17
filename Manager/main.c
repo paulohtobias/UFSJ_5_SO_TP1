@@ -1,7 +1,9 @@
 #include "process_manager.h"
 
 int main(int argc, char** argv) {
-	ProcessManager pm = novo_ProcessManager();
+	extern ProcessManager pm;
+	
+	pm_iniciar();
 
 	pm_processar_comandos(&pm);
 
