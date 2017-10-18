@@ -5,8 +5,9 @@ TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid, int prior
 
 	item.pid = pid;
 	item.ppid = ppid;
-	item.pc = &(ps->pc);
+	item.pc = ps->pc;
 	item.dado = ps->dado;
+	item.array_programa = arraylist_copia(ps->array_programa);
 	item.prioridade = prioridade;
 	item.estado = PRONTO;
 	item.tempo_inicio = tempo_inicio;

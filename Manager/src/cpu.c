@@ -33,7 +33,7 @@ void cpu_set_processo(CPU *cpu, ProcessoSimulado *ps){
 
 ESTADO cpu_executar_instrucao(CPU *cpu){
 	Instrucao instrucao;
-	arraylist_get_index(cpu->array_programa, cpu->pc, &instrucao);
+	arraylist_get_index(cpu->array_programa, cpu->pc++, &instrucao);
 	char *parametro = instrucao.parametro;
 	
 	ESTADO estado;
@@ -63,14 +63,13 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 		case 'R':
 			ps_replace((ProcessoSimulado *)cpu, parametro);
 			//Atualizando o PC pra primeira instrução.
-			cpu->pc = -1;
-			estado = BLOQUEADO; //TO-DO: talvez seja EXECUTANDO.
+			cpu->pc = 0;
+			estado = EXECUTANDO; //TO-DO: talvez seja EXECUTANDO.
 			break;
 		case 'E':
 			printf("FIM: %d\n", cpu->dado);
 			return FINALIZADO;
 	}
-	cpu->pc++;
 	cpu->fatia_tempo++;
 	if(cpu->fatia_tempo == cpu->tempo_total){
 		return PRONTO;

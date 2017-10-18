@@ -2,7 +2,7 @@
 #define PROCESS_MANAGER_H
 
 #include "cpu.h"
-#include "escalonador.h"
+#include "tabela_pcb.h"
 
 #define FATIA_TEMPO 5
 #define PRIORIDADE_PADRAO 10

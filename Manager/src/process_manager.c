@@ -5,6 +5,7 @@ ArrayList tabela_pcb;
 int estado_executando;
 ArrayList estado_pronto;
 ArrayList estado_blqueado;
+extern void escalonador_troca_contexto();
 
 ProcessManager pm;
 
@@ -81,11 +82,15 @@ void pm_executar_instrucao(){
 	
 	ESTADO estado = cpu_executar_instrucao(&pm.cpu);
 	
+	printf("Apos execucao: %d\n", estado);
+	
 	//Verificar se o processo precisa ser escaonado.
 	if((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0){
 		tabela_pcb_atualiza_estados(&tabela_pcb,estado,estado_executando);
-		escalonador_troca_contexto();
+		escalonador_troca_contexto(estado);
 	}
+	
+	
 }
 
 void pm_desbloquear_processo(){

@@ -65,3 +65,6 @@ init:
 	mkdir obj
 	mkdir "obj/windows"
 	mkdir "obj/linux"
+
+run:
+	$(MAKE) -C Manager run
