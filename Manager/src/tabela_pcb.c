@@ -15,6 +15,13 @@ TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid, int prior
 	return item;
 }
 
-int tabela_pcb_valido(const TabelaPcb *item){
-	return (item->estado == FINALIZADO);
+int tabela_pcb_valido(const void *item){
+	return (((TabelaPcb *)item)->estado == FINALIZADO);
+}
+
+void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indice){
+	TabelaPcb processo;
+	arraylist_get_index(*tabela_pcb, indice, &processo);
+	processo.estado = estado;
+	arraylist_insere_index(tabela_pcb,&processo,indice);
 }

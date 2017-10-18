@@ -66,8 +66,13 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 			estado = BLOQUEADO; //TO-DO: talvez seja EXECUTANDO.
 			break;
 		case 'E':
+			printf("FIM: %d\n", cpu->dado);
 			return FINALIZADO;
 	}
 	cpu->pc++;
+	cpu->fatia_tempo++;
+	if(cpu->fatia_tempo == cpu->tempo_total){
+		return PRONTO;
+	}
 	return estado;
 }

@@ -10,11 +10,11 @@
  * Indica o estado de um <code>Processo Simulado</code>.
  */
 typedef enum ESTADO{
-    FINALIZADO, ///Processo já terminou sua execução e pode ser substituído na
-                ///TabelaPcb.
-    EXECUTANDO, ///Processo está em execução na CPU.
-    PRONTO,     ///Processo está pronto para ser executado.
-    BLOQUEADO   ///Processo está bloqueado.
+    FINALIZADO = 1, ///Processo já terminou sua execução e pode ser substituído na
+					///TabelaPcb.
+    EXECUTANDO = 2, ///Processo está em execução na CPU.
+    PRONTO = 4,     ///Processo está pronto para ser executado.
+    BLOQUEADO = 8   ///Processo está bloqueado.
 }ESTADO;
 
 typedef struct Instrucao{

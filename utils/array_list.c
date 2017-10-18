@@ -46,6 +46,9 @@ void arraylist_insere_index(ArrayList *lista, const void *dado, int index){
 }
 
 void *arraylist_get_index(ArrayList lista, int index, void *dado){
+	if(index >= lista.tamanho_atual){
+		return NULL;
+	}
 	return memcpy(dado, lista.dados + (index * lista.size), lista.size);
 }
 
@@ -53,10 +56,18 @@ int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *)){
 	int i;
 	for(i=0; i<lista.tamanho_atual; i++){
 		void *dado = malloc(lista.size);
-		memcpy(dado, lista.dados + (index * lista.size), lista.size);
+		memcpy(dado, lista.dados + (i * lista.size), lista.size);
 		if(valido(dado)){
 			return i;
 		}
 	}
 	return -1;
+}
+
+void arrayList_remove_indice(ArrayList *lista, int indice){
+	int i;
+	for(i = indice; i < lista->tamanho_atual-1; i++){
+		arraylist_insere_index(lista, lista->dados+((i+1) * lista.size), i);
+	}
+	lista->tamanho_atual--;
 }

@@ -35,10 +35,6 @@ void pm_copiar_processo(ProcessoSimulado *ps){
 	arraylist_add_fim(&estado_pronto, &temp.pid);
 }
 
-void pm_add_processo(ProcessoSimulado *processo){
-	TabelaPcb novo_processo;
-}
-
 
 /* COMANDOS */
 
@@ -48,7 +44,7 @@ void pm_processar_comandos(){
 		comando = getchar();
 		if(comando != '\n'){
 			printf("Manager Lido: <%c>\n", comando);
-			pm_processar_comando(pm, comando);
+			pm_processar_comando(comando);
 		}
 	}while(comando != 'T');
 }
@@ -56,10 +52,7 @@ void pm_processar_comandos(){
 void pm_processar_comando(char comando){
 	switch(comando){
 		case 'Q':
-			ESTADO estado = cpu_executar_instrucao(&pm->cpu);
-			
-			
-			//TO-DO: verificar se fatia de tempo acabou, foi bloqueado, etc.
+			pm_executar_instrucao();
 			break;
 		case 'U':
 			
@@ -75,8 +68,15 @@ void pm_processar_comando(char comando){
 }
 
 void pm_executar_instrucao(){
-	//TO-DO: chamar o cpu_executar instruçao antes.
-	//O escalonamento é feito aqui. Devem ter outras coisas tbm.
+	
+	ESTADO estado = cpu_executar_instrucao(&pm.cpu);
+	
+	//Verificar se o processo precisa ser escaonado.
+	if(estado & (FINALIZADO | BLOQUEADO | PRONTO) != 0){
+		
+	}
+	
+	//TO-DO: verificar se fatia de tempo acabou, foi bloqueado, etc.
 }
 
 void pm_desbloquear_processo(){

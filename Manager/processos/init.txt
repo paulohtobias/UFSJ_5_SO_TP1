@@ -1,5 +1,14 @@
 S 1000
-A 30
-D 20
-R processos/p2.txt
+A 19
+A 20
+D 23
+A 55
+F 1
+R file_a
+F 1
+R file_b
+F 1
+R file_c
+F 1
+R file_d
 E

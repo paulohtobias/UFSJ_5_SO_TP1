@@ -18,8 +18,6 @@ void pm_iniciar();
 
 void pm_copiar_processo(ProcessoSimulado *ps);
 
-void pm_add_processo(ProcessoSimulado *novo_processo);
-
 /* COMANDOS */
 
 void pm_processar_comandos();

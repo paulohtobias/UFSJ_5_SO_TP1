@@ -81,4 +81,5 @@ void *arraylist_get_index(ArrayList lista, int index, void *dado);
  */
 int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *));
 
+void arrayList_remove_indice(ArrayList *lista, int indice);
 #endif //ARRAY_LIST_H
