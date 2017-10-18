@@ -2,10 +2,12 @@
 #define PROCESS_MANAGER_H
 
 #include "cpu.h"
-#include "tabela_pcb.h"
+#include "escalonador.h"
 
 #define FATIA_TEMPO 5
 #define PRIORIDADE_PADRAO 10
+#define FD_READ 0
+#define FD_WRITE 1
 
 typedef struct ProcessManager{
     int tempo;

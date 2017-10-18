@@ -19,4 +19,6 @@ TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid,
 
 int tabela_pcb_valido(const void *item);
 
+void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indice);
+
 #endif //TABELA_PCB_H

@@ -1,7 +1,7 @@
 #ifndef ESCALONADOR_H
 #define ESCALONADOR_H
 
-#include "process_manager.h"
+#include "tabela_pcb.h"
 
 void escalonador_troca_contexto();
 

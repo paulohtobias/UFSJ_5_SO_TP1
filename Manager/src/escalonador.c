@@ -1,6 +1,5 @@
 #include "escalonador.h"
 
-extern ProcessManager pm;
 extern ArrayList tabela_pcb;
 extern int estado_executando;
 extern ArrayList estado_pronto;
@@ -22,7 +21,6 @@ void escalonador_troca_contexto(ESTADO estado){
 	}
 	
 	//Atualizando o estado do processo que saiu na tabela PCB.
-	tabela_pcb_atualiza_estados(&tabela_pcb,estado,estado_executando);
 	tabela_pcb_atualiza_estados(&tabela_pcb,EXECUTANDO,pid_proximo);
 	
 	arrayList_remove_indice(&estado_pronto,pid_proximo);
