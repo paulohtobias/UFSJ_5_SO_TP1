@@ -16,7 +16,7 @@ typedef struct TabelaPcb{
 	
 }TabelaPcb;
 
-TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid,
+TabelaPcb novo_item_TabelaPcb(ProcessoSimulado ps, int pid, int ppid,
 							  int prioridade, int tempo_inicio);
 
 int tabela_pcb_valido(const void *item);

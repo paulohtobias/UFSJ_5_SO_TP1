@@ -1,12 +1,12 @@
 #include "processo_simulado.h"
 
-ProcessoSimulado *novo_ProcessoSimulado(const char *nome_arquivo){
-	ProcessoSimulado *processo = malloc(sizeof(ProcessoSimulado));
+ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo){
+	ProcessoSimulado processo;// = malloc(sizeof(ProcessoSimulado));
 
-	processo->dado = 0;
-	processo->pc = 0;
-	processo->array_programa = novo_ArrayList(sizeof(Instrucao));
-	ps_replace(processo, nome_arquivo);
+	processo.dado = 0;
+	processo.pc = 0;
+	processo.array_programa = novo_ArrayList(sizeof(Instrucao));
+	ps_replace(&processo, nome_arquivo);
 
 	return processo;
 }
@@ -47,8 +47,14 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	int i;
 	for(i=0; instrucoes[i] != '\0'; i++){
 		Instrucao instrucao;
-		sscanf(temp, "%c %s\n", &instrucao.tipo, instrucao.parametro);
-		temp += 3 + strlen(instrucao.parametro);
+		sscanf(temp, "%c", &instrucao.tipo);
+		temp+=2;
+		if(instrucao.tipo != 'B' && instrucao.tipo != 'E'){
+			sscanf(temp, "%s\n", instrucao.parametro);
+			temp += 1 + strlen(instrucao.parametro);
+		}else{
+			strcpy(instrucao.parametro,"-");
+		}
 		arraylist_add_fim(&processo->array_programa, &instrucao);
 	}
 

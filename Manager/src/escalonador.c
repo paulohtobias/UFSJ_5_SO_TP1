@@ -9,7 +9,11 @@ extern ArrayList estado_blqueado;
 extern ProcessManager pm;
 
 void escalonador_troca_contexto(ESTADO estado){
-	
+	if(estado == PRONTO){
+		arraylist_add_fim(&estado_pronto, &estado_executando);
+	}else if(estado == BLOQUEADO){
+		arraylist_add_fim(&estado_blqueado, &estado_executando);
+	}
 	//Decide quem vai entrar na CPU.
 	int indice;
 	int pid_proximo = estado_executando;
@@ -19,7 +23,9 @@ void escalonador_troca_contexto(ESTADO estado){
 	}else {
 		printf("Vazio %d\n", estado);
 		if(estado == FINALIZADO){
+			arrayList_remove_indice(&tabela_pcb,estado_executando);
 			printf("FIM DO PROGRAMA CARALHOU\n");
+			estado_executando = -1;
 			return;
 		}
 	}
@@ -32,10 +38,10 @@ void escalonador_troca_contexto(ESTADO estado){
 	TabelaPcb tabela;
 	arraylist_get_index(tabela_pcb,pid_proximo,&tabela);
 	
-	ProcessoSimulado *ps = malloc(sizeof(ProcessoSimulado));
-	ps->array_programa = arraylist_copia(tabela.array_programa);
-	ps->dado = tabela.dado;
-	ps->pc = tabela.pc;
+	ProcessoSimulado ps;// = malloc(sizeof(ProcessoSimulado));
+	ps.array_programa = arraylist_copia(tabela.array_programa);
+	ps.dado = tabela.dado;
+	ps.pc = tabela.pc;
 	
 	cpu_set_processo(&pm.cpu,ps);
 	
@@ -44,13 +50,6 @@ void escalonador_troca_contexto(ESTADO estado){
 
 /* FIFO */
 
-int fifo = 0;
-
 int escalonador_fifo(int pid_atual){
 	return 0;
-	
-	if(fifo + 1 >= estado_pronto.tamanho_atual){
-		fifo = 0;
-	}
-	return fifo++;
 }

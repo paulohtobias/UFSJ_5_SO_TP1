@@ -19,14 +19,14 @@ void pm_iniciar(){
 	estado_blqueado = novo_ArrayList(sizeof(int));
 	
 	//Adicionando o processo init na tabela pcb.
-	ProcessoSimulado *ps_init = novo_ProcessoSimulado("../Manager/processos/init");
+	ProcessoSimulado ps_init = novo_ProcessoSimulado("../Manager/processos/init");
 	TabelaPcb init = novo_item_TabelaPcb(ps_init, 0, -1, PRIORIDADE_PADRAO, 0);
 	cpu_set_processo(&pm.cpu, ps_init);
 	
 	arraylist_add_fim(&tabela_pcb, &init);
 }
 
-void pm_copiar_processo(ProcessoSimulado *ps){
+void pm_copiar_processo(ProcessoSimulado ps){
 	TabelaPcb temp;
 	//pid do processo em execução.
 	arraylist_get_index(tabela_pcb, estado_executando, &temp);
@@ -38,8 +38,8 @@ void pm_copiar_processo(ProcessoSimulado *ps){
 	//Cria uma nova entrada da tabela pcb.
 	temp = novo_item_TabelaPcb(ps, pid, ppid, PRIORIDADE_PADRAO, pm.tempo);
 	
-	printf("%d copiar %d -> ", pid, tabela_pcb.tamanho_atual);
-	
+	//printf("%d copiar %d -> ", pid, tabela_pcb.tamanho_atual);
+	printf("Funcao copia -PC: %d %d\n", temp.pc, ps.pc);
 	//Adiciona o novo item à tabela.
 	arraylist_insere_index(&tabela_pcb, &temp, pid);
 	arraylist_add_fim(&estado_pronto, &temp.pid);
@@ -80,14 +80,30 @@ void pm_processar_comando(char comando){
 
 void pm_executar_instrucao(){
 	
+	if(estado_executando == -1){
+		if(!arraylist_vazio(estado_pronto)){
+			escalonador_troca_contexto(0);
+		}else{
+			puts("Nao ha processos na fila de pronto!");
+			return;
+		}
+	}
 	ESTADO estado = cpu_executar_instrucao(&pm.cpu);
 	
 	printf("Apos execucao: %d\n", estado);
 	
 	//Verificar se o processo precisa ser escaonado.
 	if((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0){
+		TabelaPcb processo;
+		arraylist_get_index(tabela_pcb,estado_executando,&processo);
+		processo.dado = pm.cpu.dado;
+		processo.pc = pm.cpu.pc;
+		processo.array_programa = arraylist_copia(pm.cpu.array_programa);
+		arraylist_insere_index(&tabela_pcb,&processo,estado_executando);
+		
 		tabela_pcb_atualiza_estados(&tabela_pcb,estado,estado_executando);
 		escalonador_troca_contexto(estado);
+			
 	}
 	
 	
@@ -102,10 +118,12 @@ void pm_desbloquear_processo(){
 	arraylist_get_index(estado_blqueado,0,&pid);
 	arraylist_add_fim(&estado_pronto,&pid);
 	arrayList_remove_indice(&estado_blqueado,0);
+	tabela_pcb_atualiza_estados(&tabela_pcb,PRONTO,pid);
 }
 
 void pm_print_estado_atual_sistema(){
 	//TO-DO: atualizar o processo em execuçao com os dados da cpu.
+	
 	int i;
 	char linha[] = "**********************************************************";
 	puts(linha);
@@ -114,20 +132,21 @@ void pm_print_estado_atual_sistema(){
 	
 	printf("TEMPO ATUAL: %d\n", pm.tempo);
 	puts("PROCESSO EXECUTANDO:");
-	TabelaPcb processo_executando;
-	arraylist_get_index(tabela_pcb, estado_executando, &processo_executando);
-	printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
-	printf("%3d | %4d | %10d | %5d | %12d | %3d\n", processo_executando.pid, processo_executando.ppid,
-													processo_executando.prioridade, processo_executando.dado,
-													processo_executando.tempo_inicio, processo_executando.tempo_cpu);
-	
+	if(estado_executando != -1){
+		TabelaPcb processo_executando;
+		arraylist_get_index(tabela_pcb, estado_executando, &processo_executando);
+		printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
+		printf("%3d | %4d | %10d | %5d | %12d | %3d\n", processo_executando.pid, processo_executando.ppid,
+														processo_executando.prioridade, processo_executando.dado,
+														processo_executando.tempo_inicio, processo_executando.tempo_cpu);
+	}
 	puts("BLOQUEADO:");
 	TabelaPcb processo_bloqueado;
 	int indice;
+	printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
 	for(i=0; i<estado_blqueado.tamanho_atual; i++){
 		arraylist_get_index(estado_blqueado, i, &indice);
 		arraylist_get_index(tabela_pcb, indice, &processo_bloqueado);
-		printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
 		printf("%3d | %4d | %10d | %5d | %12d | %3d\n", processo_bloqueado.pid, processo_bloqueado.ppid,
 														processo_bloqueado.prioridade, processo_bloqueado.dado,
 														processo_bloqueado.tempo_inicio, processo_bloqueado.tempo_cpu);
@@ -135,10 +154,10 @@ void pm_print_estado_atual_sistema(){
 	
 	printf("PROCESSOS PRONTOS: %d\n", estado_pronto.tamanho_atual);
 	TabelaPcb processo_pronto;
+	printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
 	for(i=0; i<estado_pronto.tamanho_atual; i++){
 		arraylist_get_index(estado_pronto, i, &indice);
 		arraylist_get_index(tabela_pcb, indice, &processo_pronto);
-		printf("pid | ppid | prioridade | valor | tempo_inicio | CPU\n");
 		printf("%3d | %4d | %10d | %5d | %12d | %3d\n", processo_pronto.pid, processo_pronto.ppid,
 														processo_pronto.prioridade, processo_pronto.dado,
 														processo_pronto.tempo_inicio, processo_pronto.tempo_cpu);

@@ -4,7 +4,7 @@ extern ArrayList tabela_pcb;
 extern int estado_executando;
 extern ArrayList estado_pronto;
 extern ArrayList estado_blqueado;
-extern void pm_copiar_processo(ProcessoSimulado* ps);
+extern void pm_copiar_processo(ProcessoSimulado ps);
 
 CPU novo_CPU(int fatia_tempo){
 	CPU cpu;
@@ -16,7 +16,7 @@ CPU novo_CPU(int fatia_tempo){
 	return cpu;
 }
 
-CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado *ps){
+CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado ps){
 	CPU cpu = novo_CPU(fatia_tempo);
 	
 	cpu_set_processo(&cpu, ps);
@@ -24,15 +24,16 @@ CPU novo_CPU_processo(int fatia_tempo, ProcessoSimulado *ps){
 	return cpu;
 }
 
-void cpu_set_processo(CPU *cpu, ProcessoSimulado *ps){
-	cpu->pc = ps->pc;
-	cpu->dado = ps->dado;
-	cpu->array_programa = arraylist_copia(ps->array_programa);
+void cpu_set_processo(CPU *cpu, ProcessoSimulado ps){
+	cpu->pc = ps.pc;
+	cpu->dado = ps.dado;
+	cpu->array_programa = arraylist_copia(ps.array_programa);
 	cpu->tempo_total = 0;
 }
 
 ESTADO cpu_executar_instrucao(CPU *cpu){
 	Instrucao instrucao;
+	printf("Printando pc: %d\n", cpu->pc);
 	arraylist_get_index(cpu->array_programa, cpu->pc++, &instrucao);
 	char *parametro = instrucao.parametro;
 	
@@ -56,7 +57,7 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 			estado = BLOQUEADO;
 			break;
 		case 'F':
-			pm_copiar_processo((ProcessoSimulado *)cpu);
+			pm_copiar_processo(*((ProcessoSimulado *)cpu));
 			cpu->pc += atoi(parametro);
 			estado = EXECUTANDO;
 			break;
@@ -70,8 +71,9 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 			printf("FIM: %d\n", cpu->dado);
 			return FINALIZADO;
 	}
-	cpu->fatia_tempo++;
-	if(cpu->fatia_tempo == cpu->tempo_total){
+	cpu->tempo_total++;
+	printf("Dentro CPU: %d %d\n", cpu->fatia_tempo, cpu->tempo_total);
+	if(cpu->tempo_total == cpu->fatia_tempo){
 		return PRONTO;
 	}
 	return estado;
