@@ -91,14 +91,6 @@ void pm_executar_instrucao() {
 
 	//Verificar se o processo precisa ser escaonado.
 	if ((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0) {
-		//Atualiza o processo em execução com os dados da CPU.
-		/*TabelaPcb processo;
-		arraylist_get_index(tabela_pcb, estado_executando, &processo);
-		processo.dado = pm.cpu.dado;
-		processo.pc = pm.cpu.pc;
-		processo.array_programa = arraylist_copia(pm.cpu.array_programa);
-		arraylist_insere_index(&tabela_pcb, &processo, estado_executando);*/
-
 		tabela_pcb_atualiza_estados(&tabela_pcb, estado, estado_executando);
 		escalonador_troca_contexto(estado);
 	}
@@ -111,8 +103,8 @@ void pm_desbloquear_processo() {
 	}
 	int pid;
 	arraylist_get_index(estado_blqueado, 0, &pid);
-	arraylist_add_fim(&estado_pronto, &pid);
 	arrayList_remove_indice(&estado_blqueado, 0);
+	arraylist_add_fim(&estado_pronto, &pid);
 	tabela_pcb_atualiza_estados(&tabela_pcb, PRONTO, pid);
 }
 
@@ -139,16 +131,7 @@ void pm_print_estado_atual_sistema() {
 			close(pipefd[FD_READ]);
 			int stdout_old = dup(1);
 			dup2(pipefd[FD_WRITE], 1);
-			{
-				
-				/*TabelaPcb processo;
-				arraylist_get_index(tabela_pcb, estado_executando, &processo);
-				processo.dado = pm.cpu.dado;
-				processo.pc = pm.cpu.pc;
-				processo.array_programa = arraylist_copia(pm.cpu.array_programa);
-				arraylist_insere_index(&tabela_pcb, &processo, estado_executando);*/
-				
-				
+			{	
 				int i;
 				char linha[] = "**********************************************************";
 				char cabecalho[] = "pid | ppid | prioridade | valor | tempo_inicio | CPU";
