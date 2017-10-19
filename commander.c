@@ -1,4 +1,10 @@
-#include "commander.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define FD_READ 0
 #define FD_WRITE 1
