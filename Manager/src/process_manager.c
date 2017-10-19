@@ -9,26 +9,30 @@ extern void escalonador_troca_contexto();
 
 ProcessManager pm;
 
-void pm_iniciar() {
+void pm_iniciar(){
 	pm.tempo = 0;
 	pm.cpu = novo_CPU(FATIA_TEMPO);
 	pm.pid_count = 0;
-	tabela_pcb = novo_ArrayList(sizeof (TabelaPcb));
+	tabela_pcb = novo_ArrayList(sizeof(TabelaPcb));
 	estado_executando = 0;
-	estado_pronto = novo_ArrayList(sizeof (int));
-	estado_blqueado = novo_ArrayList(sizeof (int));
+	estado_pronto = novo_ArrayList(sizeof(int));
+	estado_blqueado = novo_ArrayList(sizeof(int));
 
 	//Adicionando o processo init na tabela pcb.
-	ProcessoSimulado ps_init = novo_ProcessoSimulado("Manager/processos/init");
+	ProcessoSimulado *ps_init = novo_ProcessoSimulado("./processos/init");
 	TabelaPcb init = novo_item_TabelaPcb(ps_init, 0, -1, PRIORIDADE_PADRAO, 0);
 	cpu_set_processo(&pm.cpu, ps_init);
 
 	arraylist_add_fim(&tabela_pcb, &init);
 }
 
-void pm_copiar_processo(ProcessoSimulado ps) {
+void pm_copiar_processo(ProcessoSimulado *ps) {
+	
+	//Faz a cópia do processo.
+	ProcessoSimulado *copia = ps_copia(ps);
+	
+	//Descobre o pid do pai.
 	TabelaPcb temp;
-	//pid do processo em execução.
 	arraylist_get_index(tabela_pcb, estado_executando, &temp);
 	int ppid = temp.pid;
 
@@ -36,7 +40,7 @@ void pm_copiar_processo(ProcessoSimulado ps) {
 	int pid = arraylist_posicao_vazia(tabela_pcb, tabela_pcb_valido);
 
 	//Cria uma nova entrada da tabela pcb.
-	temp = novo_item_TabelaPcb(ps, pid, ppid, PRIORIDADE_PADRAO, pm.tempo);
+	temp = novo_item_TabelaPcb(copia, pid, ppid, PRIORIDADE_PADRAO, pm.tempo);
 
 	//Adiciona o novo item à tabela.
 	arraylist_insere_index(&tabela_pcb, &temp, pid);
@@ -88,12 +92,12 @@ void pm_executar_instrucao() {
 	//Verificar se o processo precisa ser escaonado.
 	if ((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0) {
 		//Atualiza o processo em execução com os dados da CPU.
-		TabelaPcb processo;
+		/*TabelaPcb processo;
 		arraylist_get_index(tabela_pcb, estado_executando, &processo);
 		processo.dado = pm.cpu.dado;
 		processo.pc = pm.cpu.pc;
 		processo.array_programa = arraylist_copia(pm.cpu.array_programa);
-		arraylist_insere_index(&tabela_pcb, &processo, estado_executando);
+		arraylist_insere_index(&tabela_pcb, &processo, estado_executando);*/
 
 		tabela_pcb_atualiza_estados(&tabela_pcb, estado, estado_executando);
 		escalonador_troca_contexto(estado);
@@ -137,12 +141,12 @@ void pm_print_estado_atual_sistema() {
 			dup2(pipefd[FD_WRITE], 1);
 			{
 				
-				TabelaPcb processo;
+				/*TabelaPcb processo;
 				arraylist_get_index(tabela_pcb, estado_executando, &processo);
 				processo.dado = pm.cpu.dado;
 				processo.pc = pm.cpu.pc;
 				processo.array_programa = arraylist_copia(pm.cpu.array_programa);
-				arraylist_insere_index(&tabela_pcb, &processo, estado_executando);
+				arraylist_insere_index(&tabela_pcb, &processo, estado_executando);*/
 				
 				
 				int i;

@@ -55,11 +55,7 @@ void escalonador_troca_contexto(ESTADO estado){
 	//Insere o processo elegido na CPU.
 	TabelaPcb tabela;
 	arraylist_get_index(tabela_pcb, pid_proximo, &tabela);
-	ProcessoSimulado ps;
-	ps.dado = tabela.dado;
-	ps.pc = tabela.pc;
-	ps.array_programa = arraylist_copia(tabela.array_programa);
-	cpu_set_processo(&pm.cpu, ps);
+	cpu_set_processo(&pm.cpu, tabela.ps);
 
 	//Atualiza o índice do novo processo em execução.
 	estado_executando = pid_proximo;

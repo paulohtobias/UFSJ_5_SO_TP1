@@ -1,13 +1,11 @@
 #include "tabela_pcb.h"
 
-TabelaPcb novo_item_TabelaPcb(ProcessoSimulado ps, int pid, int ppid, int prioridade, int tempo_inicio){
+TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid, int prioridade, int tempo_inicio){
 	TabelaPcb item;
 
 	item.pid = pid;
 	item.ppid = ppid;
-	item.pc = ps.pc;
-	item.dado = ps.dado;
-	item.array_programa = arraylist_copia(ps.array_programa);
+	item.ps = ps;
 	item.prioridade = prioridade;
 	item.estado = PRONTO;
 	item.tempo_inicio = tempo_inicio;
@@ -30,5 +28,5 @@ void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indic
 void tabela_pcb_imprime(TabelaPcb item_tabela){
 	printf("%3d | %4d | %10d | %5d | %12d | %3d\n",
 		   item_tabela.pid, item_tabela.ppid, item_tabela.prioridade,
-		   item_tabela.dado, item_tabela.tempo_inicio, item_tabela.tempo_cpu);
+		   item_tabela.ps->dado, item_tabela.tempo_inicio, item_tabela.tempo_cpu);
 }

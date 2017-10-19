@@ -28,9 +28,9 @@ typedef struct ProcessoSimulado{
 	ArrayList array_programa;
 }ProcessoSimulado;
 
-ProcessoSimulado novo_ProcessoSimulado(const char *nome_arquivo);
+ProcessoSimulado *novo_ProcessoSimulado(const char *nome_arquivo);
 
-ProcessoSimulado ps_copia(ProcessoSimulado ps);
+ProcessoSimulado *ps_copia(ProcessoSimulado *ps);
 
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
 

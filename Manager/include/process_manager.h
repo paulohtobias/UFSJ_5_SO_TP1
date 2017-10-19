@@ -21,7 +21,7 @@ typedef struct ProcessManager{
 
 void pm_iniciar();
 
-void pm_copiar_processo(ProcessoSimulado ps);
+void pm_copiar_processo(ProcessoSimulado *ps);
 
 /* COMANDOS */
 
