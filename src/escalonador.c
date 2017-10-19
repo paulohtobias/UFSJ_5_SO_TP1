@@ -38,7 +38,7 @@ void escalonador_troca_contexto(ESTADO estado){
 		 * execução já terminou.
 		 */
 		if(estado == FINALIZADO){
-			arrayList_remove_indice(&tabela_pcb, estado_executando);
+			//arrayList_remove_indice(&tabela_pcb, estado_executando);
 			estado_executando = -1;
 			printf("Estado em execucao acabou e nao ha mais estados na fila de pronto.\n");
 			return;
