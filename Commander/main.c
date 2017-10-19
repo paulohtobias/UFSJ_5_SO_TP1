@@ -23,7 +23,7 @@ int main(){
 			dup2(pipefd[FD_READ], 0);
 			
 			//Trocando o código pelo código do Process Manager.
-			execl("../Manager/manager.out", "manager.out", (char*)NULL);
+			execl("./manager.out", "./manager.out", (char*)NULL);
 			break;
 		default:
 			//fd de leitura não será usado.

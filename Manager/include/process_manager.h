@@ -3,9 +3,12 @@
 
 #include "cpu.h"
 #include "tabela_pcb.h"
+#include <unistd.h>
+#include <sys/wait.h>
 
 #define FATIA_TEMPO 5
 #define PRIORIDADE_PADRAO 10
+
 #define FD_READ 0
 #define FD_WRITE 1
 

@@ -5,10 +5,10 @@ CFLAGS := -g -Wall -MMD
 #Binary and Running
 ifeq ($(OS),Windows_NT)
 	OS := windows
-    BIN := report.exe
+    BIN := reporter.exe
 else
 	OS := linux
-    BIN := report.out
+    BIN := ../reporter.out
 endif
 
 #Directories

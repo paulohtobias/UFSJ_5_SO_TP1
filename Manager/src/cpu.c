@@ -33,12 +33,11 @@ void cpu_set_processo(CPU *cpu, ProcessoSimulado ps){
 
 ESTADO cpu_executar_instrucao(CPU *cpu){
 	Instrucao instrucao;
-	printf("Printando pc: %d\n", cpu->pc);
 	arraylist_get_index(cpu->array_programa, cpu->pc++, &instrucao);
 	char *parametro = instrucao.parametro;
 	
 	ESTADO estado;
-	printf("CPU: %c - %s\n", instrucao.tipo, instrucao.parametro);
+	printf("CPU (%d): %c - %s\n", cpu->pc - 1, instrucao.tipo, instrucao.parametro);
 	switch(instrucao.tipo){
 		case 'S':
 			cpu->dado = atoi(parametro);
@@ -71,10 +70,15 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 			printf("FIM: %d\n", cpu->dado);
 			return FINALIZADO;
 	}
+	
+	//Verifica se o tempo de CPU acabu.
 	cpu->tempo_total++;
-	printf("Dentro CPU: %d %d\n", cpu->fatia_tempo, cpu->tempo_total);
-	if(cpu->tempo_total == cpu->fatia_tempo){
+	
+	printf("Tempo: %d/%d\n", cpu->tempo_total, cpu->fatia_tempo);
+	
+	if(cpu->tempo_total >= cpu->fatia_tempo){
 		return PRONTO;
 	}
+
 	return estado;
 }

@@ -5,8 +5,7 @@
 
 void escalonador_troca_contexto(ESTADO estado);
 
-/* FIFO */
-typedef ArrayList FIFO;
+/* POLÍTICAS DE ESCALONAMENTO */
 
 int escalonador_fifo(int pid_atual);
 

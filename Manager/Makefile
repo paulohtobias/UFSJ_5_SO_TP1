@@ -8,7 +8,7 @@ ifeq ($(OS),Windows_NT)
     BIN := manager.exe
 else
 	OS := linux
-    BIN := manager.out
+    BIN := ../manager.out
 endif
 
 #Directories

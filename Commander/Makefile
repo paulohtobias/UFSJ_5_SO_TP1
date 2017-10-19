@@ -8,7 +8,7 @@ ifeq ($(OS),Windows_NT)
     BIN := commander.exe
 else
 	OS := linux
-    BIN := commander.out
+    BIN := ../commander.out
 endif
 
 #Directories

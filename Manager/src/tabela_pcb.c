@@ -26,3 +26,9 @@ void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indic
 	processo.estado = estado;
 	arraylist_insere_index(tabela_pcb,&processo,indice);
 }
+
+void tabela_pcb_imprime(TabelaPcb item_tabela){
+	printf("%3d | %4d | %10d | %5d | %12d | %3d\n",
+		   item_tabela.pid, item_tabela.ppid, item_tabela.prioridade,
+		   item_tabela.dado, item_tabela.tempo_inicio, item_tabela.tempo_cpu);
+}

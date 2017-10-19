@@ -5,10 +5,10 @@ CFLAGS := -g -Wall -MMD
 #Binary and Running
 ifeq ($(OS),Windows_NT)
 	OS := windows
-    BIN := manager.exe
+	BIN := manager.exe
 else
 	OS := linux
-    BIN := manager.out
+	BIN := manager.out
 endif
 
 #Directories
@@ -67,4 +67,4 @@ init:
 	mkdir "obj/linux"
 
 run:
-	$(MAKE) -C Manager run
+	./commander.out
