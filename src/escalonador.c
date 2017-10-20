@@ -30,7 +30,7 @@ void escalonador_troca_contexto(ESTADO estado){
 	int indice_saida;
 	int pid_proximo = estado_executando;
 	if(estado_pronto.tamanho_atual > 0){
-		indice_saida = escalonador_fifo(estado_executando);
+		indice_saida = escalonador_menor_primeiro(estado_executando);
 		arraylist_get_index(estado_pronto, indice_saida, &pid_proximo);
 	}else{
 		/*
@@ -65,4 +65,30 @@ void escalonador_troca_contexto(ESTADO estado){
 
 int escalonador_fifo(int pid_atual){
 	return 0;
+}
+
+int escalonador_menor_primeiro(int pid_atual){
+	int i, indice, menor, possivel_menor;
+	
+	//Tomando o primeiro elemento como menor
+	int pid_do_menor = ((int*)estado_pronto.dados)[0];
+	/*Calculo do menor é dado por: quantidade de instruções - pc*/
+	menor = ((TabelaPcb*)tabela_pcb.dados)[pid_do_menor].ps->array_programa.tamanho_atual -
+			((TabelaPcb*)tabela_pcb.dados)[pid_do_menor].ps->pc;
+	
+	///Buscando qual é o programa com o menor tamanho
+	for(i = 0; i < estado_pronto.tamanho_atual ; i++){
+		indice = ((int*)estado_pronto.dados)[i]; //Acessando indices da lista
+
+		possivel_menor =((TabelaPcb*)tabela_pcb.dados)[indice].ps->array_programa.tamanho_atual -
+						((TabelaPcb*)tabela_pcb.dados)[indice].ps->pc;
+						
+		if( menor > possivel_menor ){
+			///Atualiza o processo de menor tamanho
+			pid_do_menor = ((TabelaPcb*)tabela_pcb.dados)[indice].pid;
+			menor = ((TabelaPcb*)tabela_pcb.dados)[pid_do_menor].ps->array_programa.tamanho_atual -
+					((TabelaPcb*)tabela_pcb.dados)[pid_do_menor].ps->pc;
+		}
+	}
+	return pid_do_menor;
 }
