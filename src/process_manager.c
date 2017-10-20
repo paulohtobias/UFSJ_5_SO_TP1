@@ -64,9 +64,11 @@ void pm_processar_comando(char comando) {
 	switch (comando) {
 		case 'Q':
 			pm_executar_instrucao();
+			pm.tempo++;
 			break;
 		case 'U':
 			pm_desbloquear_processo();
+			pm.tempo++;
 			break;
 		case 'P':
 			pm_print_estado_atual_sistema();
@@ -91,6 +93,7 @@ void pm_executar_instrucao() {
 
 	//Verificar se o processo precisa ser escaonado.
 	if ((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0) {
+		((TabelaPcb *)tabela_pcb.dados)[estado_executando].tempo_cpu += pm.cpu.tempo_total;
 		tabela_pcb_atualiza_estados(&tabela_pcb, estado, estado_executando);
 		escalonador_troca_contexto(estado);
 	}

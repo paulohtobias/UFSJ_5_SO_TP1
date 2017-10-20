@@ -54,6 +54,9 @@ void escalonador_troca_contexto(ESTADO estado){
 		case BLOQUEADO:
 			arraylist_add_fim(&estado_blqueado, &estado_executando);
 			break;
+		case FINALIZADO:
+			((TabelaPcb *)tabela_pcb.dados)[estado_executando].tempo_final=pm.tempo;
+			break;
 		default:
 			break;
 	}
