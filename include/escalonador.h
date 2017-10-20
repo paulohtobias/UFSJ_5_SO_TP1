@@ -13,6 +13,6 @@ int escalonador_prioridades();
 
 int escalonador_loteria();
 
-int escalonador_menor_primeiro(int pid_atual);
+int escalonador_menor_primeiro();
 
 #endif /* ESCALONADOR_H */

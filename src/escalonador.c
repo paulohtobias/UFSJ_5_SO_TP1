@@ -18,7 +18,7 @@ void escalonador_troca_contexto(ESTADO estado){
 	int indice_saida;
 	int pid_proximo = estado_executando;
 	if(!arraylist_vazio(estado_pronto)){
-		indice_saida = escalonador_loteria();
+		indice_saida = escalonador_menor_primeiro();
 		arraylist_get_index(estado_pronto, indice_saida, &pid_proximo);
 	}else{
 		/*
@@ -95,7 +95,7 @@ int escalonador_prioridades(){
 	return maior;
 }
 
-int escalonador_menor_primeiro(int pid_atual){
+int escalonador_menor_primeiro(){
 	int i, indice, menor, possivel_menor;
 	
 	//Tomando o primeiro elemento como menor
