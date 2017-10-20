@@ -155,7 +155,7 @@ void pm_print_estado_atual_sistema(){
 				TabelaPcb processo_executando;
 				arraylist_get_index(tabela_pcb, estado_executando, &processo_executando);
 				puts(cabecalho);
-				tabela_pcb_imprime(processo_executando);
+				tabela_pcb_imprime_item(processo_executando, stdout);
 			}
 			puts("\nBLOQUEADO:");
 			TabelaPcb processo_bloqueado;
@@ -164,7 +164,7 @@ void pm_print_estado_atual_sistema(){
 			for(i = 0; i < estado_blqueado.tamanho_atual; i++){
 				arraylist_get_index(estado_blqueado, i, &indice);
 				arraylist_get_index(tabela_pcb, indice, &processo_bloqueado);
-				tabela_pcb_imprime(processo_bloqueado);
+				tabela_pcb_imprime_item(processo_bloqueado, stdout);
 			}
 
 			printf("\nPROCESSOS PRONTOS: %d\n", estado_pronto.tamanho_atual);
@@ -173,7 +173,7 @@ void pm_print_estado_atual_sistema(){
 			for(i = 0; i < estado_pronto.tamanho_atual; i++){
 				arraylist_get_index(estado_pronto, i, &indice);
 				arraylist_get_index(tabela_pcb, indice, &processo_pronto);
-				tabela_pcb_imprime(processo_pronto);
+				tabela_pcb_imprime_item(processo_pronto, stdout);
 			}
 			printf("\n");
 			puts(linha);
@@ -194,5 +194,9 @@ void pm_print_estado_atual_sistema(){
 
 void pm_finaliza(){
 	pm_print_estado_atual_sistema();
+	tabela_pcb_imprime(&tabela_pcb);
+	FILE *out = fopen("saida.txt", "a");
+	fprintf(out, "%d\n", pm.tempo);
+	fclose(out);
 	exit(0);
 }

@@ -17,7 +17,6 @@
 typedef struct ProcessManager{
     int tempo;
     CPU cpu;
-    int tabela_pcb;
 }ProcessManager;
 
 void pm_iniciar();
