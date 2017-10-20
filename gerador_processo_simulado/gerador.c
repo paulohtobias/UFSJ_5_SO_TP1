@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
 	for(qnt_ps = 0; qnt_ps < atoi(argv[2]); qnt_ps++){
 		int num_linhas = rand()%atoi(argv[1]);
 
-		sprintf(nome_processo,"teste/processo%d",qnt_ps);
+		sprintf(nome_processo,"teste/processo%d",qnt_ps+1);
 		FILE *saida = fopen(nome_processo,"w");
 		for(i=0; i < num_linhas; i++){
 			switch(comandos[rand()%5]){
