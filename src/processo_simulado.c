@@ -44,11 +44,11 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	//temp será usada para percorrer a string instrucoes sem perder a referência
 	//para o endereço base.
 	char *temp = instrucoes;
-	int i;
-	for(i=0; instrucoes[i] != '\0'; i++){
+	while(1){
+	//for(i=0; instrucoes[i] != '\0'; i++){
 		Instrucao instrucao;
 		sscanf(temp, "%c", &instrucao.tipo);
-		temp+=2;
+		temp += 2;
 		if(instrucao.tipo != 'B' && instrucao.tipo != 'E'){
 			sscanf(temp, "%s\n", instrucao.parametro);
 			temp += 1 + strlen(instrucao.parametro);
@@ -56,6 +56,9 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 			strcpy(instrucao.parametro,"-");
 		}
 		arraylist_add_fim(&processo->array_programa, &instrucao);
+		if(instrucao.tipo == 'E'){
+			break;
+		}
 	}
 	free(instrucoes);
 }
