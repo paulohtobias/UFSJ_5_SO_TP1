@@ -22,6 +22,8 @@ int tabela_pcb_valido(const void *item);
 
 void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indice);
 
-void tabela_pcb_imprime(TabelaPcb item_tabela);
+void tabela_pcb_imprime_item(TabelaPcb item_tabela, FILE *out);
+
+void tabela_pcb_imprime(const ArrayList *tabela_pcb);
 
 #endif //TABELA_PCB_H

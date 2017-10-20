@@ -68,6 +68,9 @@ int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *)){
 }
 
 void arrayList_remove_indice(ArrayList *lista, int indice){
+	if(arraylist_vazio(*lista)){
+		return;
+	}
 	int i;
 	for(i = indice; i < lista->tamanho_atual-1; i++){
 		arraylist_insere_index(lista, lista->dados+((i+1) * lista->size), i);

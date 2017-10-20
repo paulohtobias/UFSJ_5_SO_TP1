@@ -25,8 +25,25 @@ void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indic
 	arraylist_insere_index(tabela_pcb,&processo,indice);
 }
 
-void tabela_pcb_imprime(TabelaPcb item_tabela){
-	printf("%3d | %4d | %10d | %5d | %12d | %3d\n",
-		   item_tabela.pid, item_tabela.ppid, item_tabela.prioridade,
-		   item_tabela.ps->dado, item_tabela.tempo_inicio, item_tabela.tempo_cpu);
+void tabela_pcb_imprime_item(TabelaPcb item_tabela, FILE *out){
+	fprintf(out, "%3d | %4d | %10d | %5d | %12d | %3d\n",
+			item_tabela.pid, item_tabela.ppid, item_tabela.prioridade,
+			item_tabela.ps->dado, item_tabela.tempo_inicio, item_tabela.tempo_cpu);
+}
+
+void tabela_pcb_imprime(const ArrayList *tabela_pcb){
+	FILE *out = fopen("saida.txt", "w");
+	if(out == NULL){
+		perror("Erro ao criar saida.txt");
+		return;
+	}
+	
+	int i;
+	for(i=0; i<tabela_pcb->tamanho_atual; i++){
+		fprintf(out, "%d;%d;%d\n",
+					((TabelaPcb *)tabela_pcb->dados)[i].pid,
+					((TabelaPcb *)tabela_pcb->dados)[i].tempo_inicio,
+					((TabelaPcb *)tabela_pcb->dados)[i].tempo_final);
+	}
+	fclose(out);
 }
