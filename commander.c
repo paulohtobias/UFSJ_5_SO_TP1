@@ -10,6 +10,7 @@
 #define FD_WRITE 1
 
 int main(){
+	puts("Process Commander");
 	int pipefd[2];
 	pid_t pid;
 

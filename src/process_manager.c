@@ -12,7 +12,6 @@ ProcessManager pm;
 void pm_iniciar(){
 	pm.tempo = 0;
 	pm.cpu = novo_CPU(FATIA_TEMPO);
-	pm.pid_count = 0;
 	tabela_pcb = novo_ArrayList(sizeof(TabelaPcb));
 	estado_executando = 0;
 	estado_pronto = novo_ArrayList(sizeof(int));
