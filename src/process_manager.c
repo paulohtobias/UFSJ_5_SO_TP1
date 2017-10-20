@@ -41,7 +41,9 @@ void pm_copiar_processo(ProcessoSimulado *ps){
 	int pid = tabela_pcb.tamanho_atual;
 
 	//Cria uma nova entrada da tabela pcb.
-	temp = novo_item_TabelaPcb(copia, pid, ppid, PRIORIDADE_PADRAO, pm.tempo);
+	//Calculando prioridade.
+	int prioridade = ((rand() % 101) / 100.0) * copia->array_programa.tamanho_atual;
+	temp = novo_item_TabelaPcb(copia, pid, ppid, prioridade, pm.tempo);
 
 	//Adiciona o novo item à tabela.
 	arraylist_insere_index(&tabela_pcb, &temp, pid);

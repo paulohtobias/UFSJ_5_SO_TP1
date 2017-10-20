@@ -78,24 +78,24 @@ int escalonador_loteria(){
 }
 
 int escalonador_prioridades(){
-	int i, maior = 0;
+	int i, menor = 0;
 
-	int indice, indice_maior;
-	//Descobre o processo com a maior prioridade.
+	int indice, indice_menor;
+	//Descobre o processo com a menor prioridade.
 	for(i = 1; i < estado_pronto.tamanho_atual; i++){
-		indice_maior = ((int *) estado_pronto.dados)[maior];
+		indice_menor = ((int *) estado_pronto.dados)[menor];
 		indice = ((int *) estado_pronto.dados)[i];
 
 		//Compara com a prioridade na tabela pcb.
-		if(((TabelaPcb *) tabela_pcb.dados)[indice].prioridade > ((TabelaPcb *) tabela_pcb.dados)[indice_maior].prioridade){
-			maior = i;
+		if(((TabelaPcb *) tabela_pcb.dados)[indice].prioridade < ((TabelaPcb *) tabela_pcb.dados)[indice_menor].prioridade){
+			menor = i;
 		}
 	}
 
-	//Diminuindo a prioridade do processo escolhido para evitar starvation.
-	((TabelaPcb *) tabela_pcb.dados)[maior].prioridade--;
+	//Dimunuindo a prioridade (aumentando o valor) do processo escolhido para evitar starvation.
+	((TabelaPcb *) tabela_pcb.dados)[menor].prioridade++;
 
-	return maior;
+	return menor;
 }
 
 int escalonador_menor_primeiro(){
