@@ -7,14 +7,16 @@
 */
 int main(int argc, char *argv[]){
 	srand(time(NULL));
+	FILE *inicio = fopen("teste/init","w");
 	int i, qnt_ps;
 	char comandos[5] = {'S','A','D','B','F'};
 	char nome_processo[1024];
 	
 	for(qnt_ps = 0; qnt_ps < atoi(argv[2]); qnt_ps++){
+		fprintf(inicio,"F 1\nR processo%d\n",qnt_ps+1);
 		int num_linhas = rand()%atoi(argv[1]);
 
-		sprintf(nome_processo,"teste/processo%d",qnt_ps);
+		sprintf(nome_processo,"teste/processo%d",qnt_ps+1);
 		FILE *saida = fopen(nome_processo,"w");
 		for(i=0; i < num_linhas; i++){
 			switch(comandos[rand()%5]){
