@@ -11,4 +11,6 @@ int escalonador_fifo();
 
 int escalonador_prioridades();
 
+int escalonador_loteria();
+
 #endif /* ESCALONADOR_H */

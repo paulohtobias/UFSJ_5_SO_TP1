@@ -5,6 +5,8 @@
 #include "tabela_pcb.h"
 #include <unistd.h>
 #include <sys/wait.h>
+#include <time.h>
+
 
 #define FATIA_TEMPO 5
 #define PRIORIDADE_PADRAO 10

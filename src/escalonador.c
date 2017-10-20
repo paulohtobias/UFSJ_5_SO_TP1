@@ -17,8 +17,9 @@ void escalonador_troca_contexto(ESTADO estado){
 	 */
 	int indice_saida;
 	int pid_proximo = estado_executando;
-	if(estado_pronto.tamanho_atual > 0){
-		indice_saida = escalonador_prioridades();
+	if(!arraylist_vazio(estado_pronto)){
+		//indice_saida = escalonador_prioridades();
+		indice_saida = escalonador_loteria();
 		arraylist_get_index(estado_pronto, indice_saida, &pid_proximo);
 	}else{
 		/*
@@ -65,6 +66,10 @@ void escalonador_troca_contexto(ESTADO estado){
 
 int escalonador_fifo(){
 	return 0;
+}
+
+int escalonador_loteria(){
+	return rand() % estado_pronto.tamanho_atual;
 }
 
 int escalonador_prioridades(){

@@ -10,6 +10,7 @@ extern void escalonador_troca_contexto(ESTADO estado);
 ProcessManager pm;
 
 void pm_iniciar(){
+	srand( (unsigned)time(NULL) );
 	pm.tempo = 0;
 	pm.cpu = novo_CPU(FATIA_TEMPO);
 	tabela_pcb = novo_ArrayList(sizeof(TabelaPcb));
