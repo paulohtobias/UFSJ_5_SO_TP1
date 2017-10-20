@@ -5,6 +5,8 @@
 #include "tabela_pcb.h"
 #include <unistd.h>
 #include <sys/wait.h>
+#include <time.h>
+
 
 #define FATIA_TEMPO 5
 #define PRIORIDADE_PADRAO 10
@@ -16,7 +18,6 @@ typedef struct ProcessManager{
     int tempo;
     CPU cpu;
     int tabela_pcb;
-	int pid_count;
 }ProcessManager;
 
 void pm_iniciar();

@@ -7,7 +7,11 @@ void escalonador_troca_contexto(ESTADO estado);
 
 /* POLÍTICAS DE ESCALONAMENTO */
 
-int escalonador_fifo(int pid_atual);
+int escalonador_fifo();
+
+int escalonador_prioridades();
+
+int escalonador_loteria();
 
 int escalonador_menor_primeiro(int pid_atual);
 

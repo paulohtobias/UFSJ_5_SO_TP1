@@ -5,14 +5,14 @@ ArrayList tabela_pcb;
 int estado_executando;
 ArrayList estado_pronto;
 ArrayList estado_blqueado;
-extern void escalonador_troca_contexto();
+extern void escalonador_troca_contexto(ESTADO estado);
 
 ProcessManager pm;
 
 void pm_iniciar(){
+	srand( (unsigned)time(NULL) );
 	pm.tempo = 0;
 	pm.cpu = novo_CPU(FATIA_TEMPO);
-	pm.pid_count = 0;
 	tabela_pcb = novo_ArrayList(sizeof(TabelaPcb));
 	estado_executando = 0;
 	estado_pronto = novo_ArrayList(sizeof(int));
@@ -64,9 +64,11 @@ void pm_processar_comando(char comando) {
 	switch (comando) {
 		case 'Q':
 			pm_executar_instrucao();
+			pm.tempo++;
 			break;
 		case 'U':
 			pm_desbloquear_processo();
+			pm.tempo++;
 			break;
 		case 'P':
 			pm_print_estado_atual_sistema();
@@ -91,6 +93,7 @@ void pm_executar_instrucao() {
 
 	//Verificar se o processo precisa ser escaonado.
 	if ((estado & (FINALIZADO | BLOQUEADO | PRONTO)) != 0) {
+		((TabelaPcb *)tabela_pcb.dados)[estado_executando].tempo_cpu += pm.cpu.tempo_total;
 		tabela_pcb_atualiza_estados(&tabela_pcb, estado, estado_executando);
 		escalonador_troca_contexto(estado);
 	}

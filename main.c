@@ -1,6 +1,7 @@
 #include "escalonador.h"
 
 int main(int argc, char** argv) {
+	puts("Process Manager");
 	extern ProcessManager pm;
 	
 	pm_iniciar();

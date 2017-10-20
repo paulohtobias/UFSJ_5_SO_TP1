@@ -21,7 +21,7 @@ ArrayList arraylist_copia(ArrayList lista){
 }
 
 int arraylist_vazio(const ArrayList lista){
-	return (lista.tamanho_atual == 0);
+	return (lista.tamanho_atual <= 0);
 }
 
 void arraylist_add_fim(ArrayList *lista, const void *dado){

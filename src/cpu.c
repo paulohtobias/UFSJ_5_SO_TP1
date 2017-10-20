@@ -68,7 +68,7 @@ ESTADO cpu_executar_instrucao(CPU *cpu){
 			return FINALIZADO;
 	}
 	
-	//Verifica se o tempo de CPU acabu.
+	//Verifica se o tempo de CPU acabou.
 	cpu->tempo_total++;
 	
 	printf("Tempo: %d/%d\n", cpu->tempo_total, cpu->fatia_tempo);

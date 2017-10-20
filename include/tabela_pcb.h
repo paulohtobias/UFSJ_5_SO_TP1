@@ -10,6 +10,7 @@ typedef struct TabelaPcb{
 	int prioridade;
 	ESTADO estado;
 	int tempo_inicio; ///"Horário" que o processo foi iniciado.
+	int tempo_final;///"Horário" que o processo foi terminado..
 	int tempo_cpu; ///Tempo total em que o processo passou na CPU.
 	
 }TabelaPcb;

@@ -9,18 +9,6 @@ extern ArrayList estado_blqueado;
 extern ProcessManager pm;
 
 void escalonador_troca_contexto(ESTADO estado){
-	//Insere o pid do processo que está saindo na tabela correspondente.
-	switch(estado){
-		case PRONTO:
-			arraylist_add_fim(&estado_pronto, &estado_executando);
-			break;
-		case BLOQUEADO:
-			arraylist_add_fim(&estado_blqueado, &estado_executando);
-			break;
-		default:
-			break;
-	}
-
 	/*
 	 * Decide quem vai entrar na CPU.
 	 * Inicialmente assume-se que o estado em execução continuará na CPU. Se a
@@ -29,8 +17,8 @@ void escalonador_troca_contexto(ESTADO estado){
 	 */
 	int indice_saida;
 	int pid_proximo = estado_executando;
-	if(estado_pronto.tamanho_atual > 0){
-		indice_saida = escalonador_menor_primeiro(estado_executando);
+	if(!arraylist_vazio(estado_pronto)){
+		indice_saida = escalonador_loteria();
 		arraylist_get_index(estado_pronto, indice_saida, &pid_proximo);
 	}else{
 		/*
@@ -57,14 +45,54 @@ void escalonador_troca_contexto(ESTADO estado){
 	arraylist_get_index(tabela_pcb, pid_proximo, &tabela);
 	cpu_set_processo(&pm.cpu, tabela.ps);
 
+	//Insere o pid do processo que está saindo na tabela correspondente.
+	switch(estado){
+		case PRONTO:
+			arraylist_add_fim(&estado_pronto, &estado_executando);
+			break;
+		case BLOQUEADO:
+			arraylist_add_fim(&estado_blqueado, &estado_executando);
+			break;
+		case FINALIZADO:
+			((TabelaPcb *)tabela_pcb.dados)[estado_executando].tempo_final=pm.tempo;
+			break;
+		default:
+			break;
+	}
+	
 	//Atualiza o índice do novo processo em execução.
 	estado_executando = pid_proximo;
 }
 
 /* POLÍTICAS DE ESCALONAMENTO */
 
-int escalonador_fifo(int pid_atual){
+int escalonador_fifo(){
 	return 0;
+}
+
+int escalonador_loteria(){
+	return rand() % estado_pronto.tamanho_atual;
+}
+
+int escalonador_prioridades(){
+	int i, maior = 0;
+
+	int indice, indice_maior;
+	//Descobre o processo com a maior prioridade.
+	for(i=1; i<estado_pronto.tamanho_atual; i++){
+		indice_maior = ((int *)estado_pronto.dados)[maior];
+		indice = ((int *)estado_pronto.dados)[i];
+		
+		//Compara com a prioridade na tabela pcb.
+		if(((TabelaPcb *)tabela_pcb.dados)[indice].prioridade > ((TabelaPcb *)tabela_pcb.dados)[indice_maior].prioridade){
+			maior = i;
+		}
+	}
+	
+	//Diminuindo a prioridade do processo escolhido para evitar starvation.
+	((TabelaPcb *)tabela_pcb.dados)[maior].prioridade--;
+	
+	return maior;
 }
 
 int escalonador_menor_primeiro(int pid_atual){
