@@ -38,7 +38,7 @@ void pm_copiar_processo(ProcessoSimulado *ps){
 
 	//pid do filho.
 	//TO-DO: trocar pra tabela_pcb.tamanho_atual
-	int pid = arraylist_posicao_vazia(tabela_pcb, tabela_pcb_valido);
+	int pid = tabela_pcb.tamanho_atual;
 
 	//Cria uma nova entrada da tabela pcb.
 	temp = novo_item_TabelaPcb(copia, pid, ppid, PRIORIDADE_PADRAO, pm.tempo);
