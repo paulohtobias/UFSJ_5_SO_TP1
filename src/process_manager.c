@@ -5,7 +5,7 @@ ArrayList tabela_pcb;
 int estado_executando;
 ArrayList estado_pronto;
 ArrayList estado_blqueado;
-extern void escalonador_troca_contexto();
+extern void escalonador_troca_contexto(ESTADO estado);
 
 ProcessManager pm;
 
