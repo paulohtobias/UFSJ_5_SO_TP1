@@ -1,4 +1,0 @@
-./Manager/src/cpu.c:55:			//TO-DO: bloquear processo
-./Manager/src/cpu.c:67:			estado = BLOQUEADO; //TO-DO: talvez seja EXECUTANDO.
-./Manager/src/process_manager.c:103:	//TO-DO: atualizar o processo em execuçao com os dados da cpu.
-./Manager/src/process_manager.c:149:		//TO-DO - passar os dados para o reporter
