@@ -55,7 +55,7 @@ void arraylist_add_fim(ArrayList *lista, const void *dado);
  * @param dado endereço do dado que será copiado para o final da lista.
  * @param index posição da lista que <code>dado</code> será inserido.
  */
-void arraylist_insere_index(ArrayList *lista, const void *dado, int index);
+void arraylist_substitui_index(ArrayList *lista, const void *dado, int index);
 
 /**
  * Copia o dado na posição <code>index</code> de <code>lista</code> para o
@@ -71,15 +71,11 @@ void arraylist_insere_index(ArrayList *lista, const void *dado, int index);
 void *arraylist_get_index(ArrayList lista, int index, void *dado);
 
 /**
- * Retorna o índice da primeira posição válida da lista.
+ * Remove o dado que está na posição <code>indice</code> de <code>lista</code>.
  * 
- * @param lista um <code>ArrayList</code>
- * @param valido função que será chamada sobre os dados para verificar se são
- * válidos ou não
- * @return o primeiro índice onde há uma posição válida ou -1 caso não exista
- * nenhuma
+ * @param lista lista um <code>ArrayList</code>
+ * @param indice posição da lista que será removida
  */
-int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *));
-
 void arrayList_remove_indice(ArrayList *lista, int indice);
+
 #endif //ARRAY_LIST_H

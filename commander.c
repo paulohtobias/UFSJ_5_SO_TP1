@@ -22,7 +22,6 @@ int main(){
 			perror("has not created a children process");
 			break;
 		case 0:
-			//exit(0);
 			//fd de escrita não será usado.
 			close(pipefd[FD_WRITE]);
 			
@@ -40,7 +39,6 @@ int main(){
 			do{
 				scanf("%c", &comando);
 				if(comando != '\n'){
-					//printf("Commander Lido: <%c>\n", comando);
 					write(pipefd[FD_WRITE], &comando, 1);
 					sleep(1); ///A cada segundo um comando é lido
 				}

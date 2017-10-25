@@ -30,7 +30,7 @@ DEPS = $(SRCS:$(SDIR)/%.c=$(ODIR)/%.d)
 
 all: $(OBJS)
 	$(COMPILE) reporter.c -o reporter.out
-	$(COMPILE) $(OBJS) main.c -o manager.out $(LIBRARIES)
+	$(COMPILE) $(OBJS) manager.c -o manager.out $(LIBRARIES)
 	$(COMPILE) commander.c -o commander.out
 
 # Include all .d files

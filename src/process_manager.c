@@ -5,6 +5,7 @@ ArrayList tabela_pcb;
 int estado_executando;
 ArrayList estado_pronto;
 ArrayList estado_blqueado;
+
 extern void escalonador_troca_contexto(ESTADO estado);
 
 ProcessManager pm;
@@ -46,7 +47,7 @@ void pm_copiar_processo(ProcessoSimulado *ps){
 	temp = novo_item_TabelaPcb(copia, pid, ppid, prioridade, pm.tempo);
 
 	//Adiciona o novo item à tabela.
-	arraylist_insere_index(&tabela_pcb, &temp, pid);
+	arraylist_substitui_index(&tabela_pcb, &temp, pid);
 	arraylist_add_fim(&estado_pronto, &temp.pid);
 }
 
@@ -57,7 +58,6 @@ void pm_processar_comandos(){
 	do{
 		comando = getchar();
 		if(comando != '\n'){
-			printf("Manager Lido: <%c>\n", comando);
 			pm_processar_comando(comando);
 		}
 	}while(comando != 'T');
@@ -196,9 +196,14 @@ void pm_print_estado_atual_sistema(){
 
 void pm_finaliza(){
 	pm_print_estado_atual_sistema();
-	tabela_pcb_imprime(&tabela_pcb);
-	FILE *out = fopen("saida.txt", "a");
-	fprintf(out, "%d\n", pm.tempo);
-	fclose(out);
+	
+	//Liberando os processos simulados da memória.
+	int i;
+	for(i=0; i<tabela_pcb.tamanho_atual; i++){
+		free(((TabelaPcb *)tabela_pcb.dados)[i].ps->array_programa.dados);
+		free(((TabelaPcb *)tabela_pcb.dados)[i].ps);
+	}
+	free((TabelaPcb *)tabela_pcb.dados);
+	
 	exit(0);
 }

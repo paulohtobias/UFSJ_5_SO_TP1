@@ -45,7 +45,6 @@ void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo){
 	//para o endereço base.
 	char *temp = instrucoes;
 	while(1){
-	//for(i=0; instrucoes[i] != '\0'; i++){
 		Instrucao instrucao;
 		sscanf(temp, "%c", &instrucao.tipo);
 		temp += 2;

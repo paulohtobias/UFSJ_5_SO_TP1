@@ -15,15 +15,14 @@ typedef struct TabelaPcb{
 	
 }TabelaPcb;
 
+///Cria um novo item da tabela PCB.
 TabelaPcb novo_item_TabelaPcb(ProcessoSimulado *ps, int pid, int ppid,
 							  int prioridade, int tempo_inicio);
 
-int tabela_pcb_valido(const void *item);
-
+///Atualiza o estado de um item da tabela PCB indicado por <code>indice</code>.
 void tabela_pcb_atualiza_estados(ArrayList *tabela_pcb, ESTADO estado, int indice);
 
+///Imprime os dados do item da tabela no arquivo indicado.
 void tabela_pcb_imprime_item(TabelaPcb item_tabela, FILE *out);
-
-void tabela_pcb_imprime(const ArrayList *tabela_pcb);
 
 #endif //TABELA_PCB_H

@@ -33,7 +33,6 @@ void escalonador_troca_contexto(ESTADO estado){
 			printf("Estado em execucao foi bloqueado e nao ha mais estados na fila de pronto.\n");
 		}
 	}
-	printf("ESCALONADOR: %d ===> %d\n", estado_executando, pid_proximo);
 
 	if(pid_proximo != -1){
 		//Atualizando o estado na tabela TCB do processo que vai entrar na CPU.
@@ -51,7 +50,9 @@ void escalonador_troca_contexto(ESTADO estado){
 	//Insere o pid do processo que está saindo na tabela correspondente.
 	switch(estado){
 		case PRONTO:
-			arraylist_add_fim(&estado_pronto, &estado_executando);
+			if(pid_proximo != estado_executando){
+				arraylist_add_fim(&estado_pronto, &estado_executando);
+			}
 			break;
 		case BLOQUEADO:
 			arraylist_add_fim(&estado_blqueado, &estado_executando);
@@ -69,7 +70,7 @@ void escalonador_troca_contexto(ESTADO estado){
 
 /* POLÍTICAS DE ESCALONAMENTO */
 
-int escalonador_fifo(){
+int escalonador_circular(){
 	return 0;
 }
 

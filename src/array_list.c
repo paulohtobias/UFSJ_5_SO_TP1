@@ -37,7 +37,7 @@ void arraylist_add_fim(ArrayList *lista, const void *dado){
 	lista->tamanho_atual++;
 }
 
-void arraylist_insere_index(ArrayList *lista, const void *dado, int index){
+void arraylist_substitui_index(ArrayList *lista, const void *dado, int index){
 	if(index >= lista->tamanho_atual){
 		lista->tamanho_atual = index + 1;
 		if(index >= lista->tamanho_maximo){
@@ -55,25 +55,13 @@ void *arraylist_get_index(ArrayList lista, int index, void *dado){
 	return memcpy(dado, lista.dados + (index * lista.size), lista.size);
 }
 
-int arraylist_posicao_vazia(ArrayList lista, int (*valido)(const void *)){
-	int i;
-	for(i=0; i<lista.tamanho_atual; i++){
-		void *dado = malloc(lista.size);
-		memcpy(dado, lista.dados + (i * lista.size), lista.size);
-		if(valido(dado)){
-			return i;
-		}
-	}
-	return i;
-}
-
 void arrayList_remove_indice(ArrayList *lista, int indice){
 	if(arraylist_vazio(*lista)){
 		return;
 	}
 	int i;
 	for(i = indice; i < lista->tamanho_atual-1; i++){
-		arraylist_insere_index(lista, lista->dados+((i+1) * lista->size), i);
+		arraylist_substitui_index(lista, lista->dados+((i+1) * lista->size), i);
 	}
 	lista->tamanho_atual--;
 }

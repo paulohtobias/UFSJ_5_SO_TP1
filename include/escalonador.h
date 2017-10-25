@@ -5,9 +5,13 @@
 
 void escalonador_troca_contexto(ESTADO estado);
 
-/* POLÍTICAS DE ESCALONAMENTO */
+/* 
+ * POLÍTICAS DE ESCALONAMENTO 
+ * 
+ * As funções de escalonamento retornam o índice da tabela de índices de pronto.
+ */
 
-int escalonador_fifo();
+int escalonador_circular();
 
 int escalonador_prioridades();
 

@@ -28,10 +28,16 @@ typedef struct ProcessoSimulado{
 	ArrayList array_programa;
 }ProcessoSimulado;
 
+///Cria um no processo simulado a partir de <code>nome_arquivo</code>.
 ProcessoSimulado *novo_ProcessoSimulado(const char *nome_arquivo);
 
+///Faz uma cópia do processo.
 ProcessoSimulado *ps_copia(ProcessoSimulado *ps);
 
+/**
+ * Sobrescreve o array de programa do processo pelo contido em
+ * <code>nome_arquivo</code>.
+ */
 void ps_replace(ProcessoSimulado *processo, const char *nome_arquivo);
 
 #endif //PROCESSO_SIMULADO_H
